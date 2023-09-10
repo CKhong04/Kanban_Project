@@ -1,0 +1,87 @@
+/* Below line is used for online Google font */
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(145deg, #4fb5f0, #182466);
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: #cdcdcd;
+}
+
+/* Set a style for all buttons */
+input[type=button ]{
+  background-color: #99ddf9;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type=button]:hover{
+    background: linear-gradient(#2bc2f2 5%, #3e9cea 100%);
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 1% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+h2{
+    background:linear-gradient(135deg, #aed0e4, #4f64dd);
+    padding: 30px 35px;
+    margin: -10px -50px;
+    text-align:center;
+    border-radius: 10px 10px 0 0;
+}
+
+div.main{
+    width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:50px;
+    padding-bottom: 20px;
+    border: 2px solid gray;
+    border-radius: 20px;
+    background-color: #e1dede;
+}
+
+label{
+    color: #464646;
+    text-shadow: 0 1px 0 #fff;
+    font-size: 14px;
+    font-weight: bold;  
+}
