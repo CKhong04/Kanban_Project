@@ -1,10 +1,24 @@
+
 <!-- https://www.w3schools.com/howto/howto_css_login_form.asp -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {font-family: Arial, Helvetica, sans-serif;}
+  @import url(http://fonts.googleapis.com/css?family=Raleway);
+body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(145deg, #4fb5f0, #182466);
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #1691c6;
+  margin: 5% auto 20% auto; /* 5% from the top, 20% from the bottom and centered */
+  width: 80%; /* Could be more or less, depending on screen size */
+}
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
@@ -14,11 +28,12 @@ input[type=text], input[type=password] {
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  background-color: #cdcdcd;
 }
 
 /* Set a style for all buttons */
 button {
-  background-color: #04AA6D;
+  background-color: #21a0d7;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -28,7 +43,11 @@ button {
 }
 
 .container {
-  padding: 16px;
+  padding: 18px;
+  width: 400px;
+  border: 2px solid gray;
+  background-color: #ffffff;
+  border-radius: 20px;
 }
 
 span.psw {
@@ -51,12 +70,19 @@ span.psw {
   padding-top: 60px;
 }
 
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+h2{
+    background:linear-gradient(135deg, #aed0e4, #4f64dd);
+    padding: 30px 35px;
+    margin: -10px -50px;
+    text-align:center;
+    border-radius: 10px 10px 0 0;
+}
+
+label{
+    color: #464646;
+    text-shadow: 0 1px 0 #fff;
+    font-size: 14px;
+    font-weight: bold;  
 }
 
 
