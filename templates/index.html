@@ -1,51 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Agile2101</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agile2101</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 <body>
-	<div class="padded-boxes">
-		<section>
-			<h3 class="heading">Product Backlog <img src="{{ url_for('static', filename='images/icon.png') }}" alt="Icon"></h3>
-			<div class="padded">
-				<div class="container">
-					<div class="scrum-app">
-						<div class="row">
-							<input type="text" id="input-box" placeholder="Add item here">
-							<button onclick="addTask()"> Add</button>
-						</div>
-						<ul id="list-container">
-							<!-- <li class="checked">Task1</li> -->
-							<!-- <li>Task2</li>
-							<li>Task3</li> -->
-			
-						</ul>
+<div class="padded-boxes">
+<section>
+<h3 class="heading">Product Backlog <img src="{{ url_for('static', filename='images/icon.png') }}" alt="Icon"></h3>
+<div class="padded">
+<div class="container">
+<div class="scrum-app">
+<div class="row">
+<input type="text" id="input-box" placeholder="Add item here">
+<button onclick="addTask()"> Add</button>
+</div>
+<ul id="list-container">
+<!-- <li class="checked">Task1</li> -->
+<!-- <li>Task2</li>
+<li>Task3</li> -->
+
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h3 class="heading">Sprint: To Do</h3>
+	<div class="padded">
+		<div class = "container">
+			<div class ="red">
+			<ul class="sortable-list">
+				<li class="item" draggable="true">
+					<div class="details">
+					<span>Task 1</span>
 					</div>
+					<i class="uil uil-draggabledots"></i>
+				</li>
+				<li class="item" draggable="true">
+				<div class="details">
+				<span>Task 2</span>
 				</div>
+				<i class="uil uil-draggabledots"></i>
+				</li>
+				<li class="item" draggable="true">
+					<div class="details">
+					<span>Task 3</span>
+					</div>
+					<i class="uil uil-draggabledots"></i>
+				</li>
+				<li class="item" draggable="true">
+					<div class="details">
+					<span>Task 4</span>
+					</div>
+					<i class="uil uil-draggabledots"></i>
+				</li>
+			</ul>
 			</div>
-		</section>
-		<section>
-			<h3 class="heading">Sprint: To Do</h3>
-			<div class="padded">
-				<!-- box 2 content -->
-			</div>
-		</section>
-		<section>
-			<h3 class="heading">Doing</h3>
-			<div class="padded">
-				<!-- box 3 content -->
-			</div>
-		</section>
-		<section>
-			<h3 class="heading">Done</h3>
-			<div class="padded">
-				<!-- box 4 content -->
-			</div>
-		</section>
+		</div>
 	</div>
+</section>
+<section>
+<h3 class="heading">Doing</h3>
+<div class="padded">
+<div class ="yellow"></div>
+<!-- box 3 content -->
+</div>
+</section>
+<section>
+<h3 class="heading">Done</h3>
+<div class="padded">
+<div class ="green"></div>
+<!-- box 4 content -->
+</div>
+</section>
+</div>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
+x

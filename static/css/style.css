@@ -3,78 +3,111 @@
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
-}
+    }
 
-/* container */
-.padded-boxes {
+    /* container */
+    .padded-boxes {
     display:flex;
     flex-wrap:wrap;
     gap:1rem;
     background-color: white;
-}
+    }
 
-/* boxes */
-.padded-boxes > * {
+    /* boxes */
+    .padded-boxes > * {
     width:100%;
     background:#eee;
-    border-radius:.4rem;
-    background: linear-gradient(135deg, #2c86b9, #182466)
-}
+    border-radius:.2rem;
+    background: linear-gradient(135deg, #5ea5ce, #3b4ba0)
+    }
 
-/* headings */
-.padded-boxes .heading {
-    background:#002765;
+    /* heading */
+    .padded-boxes .heading {
+    background:#0e46a0;
     color: white;
     display: flex;
     align-items: left;
     margin-bottom: 20px;
-    padding:1rem;
+    padding:1.2rem;
     border-top-left-radius:.4rem;
     border-top-right-radius:.4rem;
-}
+    }
 
-.padded-boxes img{
+
+    .padded-boxes img{
     width: 30px;
     margin-left: 10px;
-}
+    margin-top: -7px;
+    }
 
-/* padded content */
-.padded-boxes .padded {
+    /* padded content */
+    .padded-boxes .padded {
     padding:.1rem 1rem;
-}
+    }
+
 
 /* tablet breakpoint */
 @media (min-width:768px) {
     .padded-boxes > * {
-        width:calc((100% - 4rem) / 4);
+    width:calc((100% - 4rem) / 4);
     }
-}
+    }
 
-.container{
+    .container{
     width:100%;
     min-height: 100vh;
-    background: linear-gradient(135deg, #2c86b9, #182466);
-}
-/*main white box*/
-.scrum-app{
+    }
+    /*main white box*/
+    .scrum-app{
     width: 100%;
     max-width: 320px;
     background: #fff;
     margin: auto;
     padding: 25px 5px 70px;
     border-radius: 10px;
-}
+    }
 
-/*input line*/
-.row{
+    /*input line*/
+    .row{
     display: flex;
     align-items: centre;
     justify-content: space-between;
     background: #dfdfe0;
     border-radius: 30px;
     margin-bottom: 25px;
-}
-input{
+    }
+
+    .red {
+    width: 100%;
+    max-width: 320px;
+    background: #e06868;
+    margin: auto;
+    padding: 25px 5px 70px;
+    border-radius: 10px;
+    min-height: 300px;
+    }
+
+    .yellow{
+    width: 100%;
+    max-width: 320px;
+    background: #e6dc6f;
+    margin: auto;
+    padding: 25px 5px 70px;
+    border-radius: 10px;
+    min-height: 300px;
+    }
+
+    .green{
+    width: 100%;
+    max-width: 320px;
+    background: #33c550;
+    margin: auto;
+    padding: 25px 5px 70px;
+    border-radius: 10px;
+    min-height: 300px;
+    }
+
+    input{
     max-width: 200px;
     flex: 1;
     border: none;
@@ -82,10 +115,10 @@ input{
     background: transparent;
     padding: 10px;
     font-weight: 14px;
-}
+    }
 
-/*add button*/
-button{
+    /*add button*/
+    button{
     max-width: 70px;
     border: none;
     outline: none;
@@ -96,18 +129,18 @@ button{
     font-size: 16px;
     cursor: pointer;
 
-}
-ul li{
+    }
+    ul li{
     list-style: none;
     font-size: 16px;
     padding: 12px 60px 12px 8px;
     user-select: none;
     cursor: pointer;
     position: relative;
-}
+    }
 
-/*check images*/
-ul li::before{
+    /*check images*/
+    ul li::before{
     content:'';
     position: absolute;
     height: 28px;
@@ -118,17 +151,17 @@ ul li::before{
     background-position: left;
     top: 12px;
     left:8px;
-}
-ul li.checked{
+    }
+    ul li.checked{
     color: #555;
     text-decoration: line-through;
-}
-ul li.checked::before{
+    }
+    ul li.checked::before{
     background-image: url(images/checked.png);
-}
+    }
 
-/*'x' button to delete*/
-ul li span{
+    /*'x' button to delete*/
+    ul li span{
     position: absolute;
     right:18px;
     top: 5px;
@@ -138,14 +171,14 @@ ul li span{
     color: #555;
     line-height: 40px;
     text-align: center;
-}
-ul li span:hover{
+    }
+    ul li span:hover{
     background: #dfdfe0;
     border-radius: 30px;
-}
+    }
 
-/*'arrow' button to move up*/
-ul li span2{
+    /*'arrow' button to move up*/
+    ul li span2{
     position: absolute;
     right:40px;
     top: 5px;
@@ -155,14 +188,14 @@ ul li span2{
     color: #ff0000;
     line-height: 40px;
     text-align: center;
-}
+    }
 
-ul li span2:hover{
+    ul li span2:hover{
     background: #dfdfe0;
     border-radius: 30px;
-}
-/*down*/
-ul li span3{
+    }
+    /*down*/
+    ul li span3{
     position: absolute;
     right:-4px;
     top: 5px;
@@ -172,9 +205,58 @@ ul li span3{
     color: #3d257c;
     line-height: 40px;
     text-align: center;
-}
+    }
 
-ul li span3:hover{
+    ul li span3:hover{
     background: #dfdfe0;
     border-radius: 30px;
+    }
+
+    /* For the drag and droppable items */
+    .sortable-list {
+        display: flex;
+        align-items: center;
+        width: 265px;
+        padding: 25px;
+        background: transparent;
+        border-radius: 7px;
+        padding: 0px 5px 20px;
+        display: block;
+      }
+
+    .sortable-list .item {
+    list-style: none;
+    display: flex;
+    cursor: move;
+    background: white;
+    align-items: left;
+    border-radius: 5px;
+    margin-bottom: 11px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    border: 1px solid #ccc;
+    justify-content: centre;
+    width: 250px;
+    }
+
+    .item .details span {
+    font-size: 16px;
+    justify-content: left;
+    display: flex;
+    align-items: centre;
+    margin-right:130px;
+    width: 80px;
+    }
+    .item i {
+    color: #474747;
+    font-size: 16px;
+    margin-left: 200px;
+    }
+
+    .item.dragging {
+        opacity: 0.6;
+    }
+
+    .item.dragging :where(i) {
+    opacity: 0.6;
+    justify-content: centre
 }
