@@ -1,0 +1,180 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+/* container */
+.padded-boxes {
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+    background-color: white;
+}
+
+/* boxes */
+.padded-boxes > * {
+    width:100%;
+    background:#eee;
+    border-radius:.4rem;
+    background: linear-gradient(135deg, #2c86b9, #182466)
+}
+
+/* headings */
+.padded-boxes .heading {
+    background:#002765;
+    color: white;
+    display: flex;
+    align-items: left;
+    margin-bottom: 20px;
+    padding:1rem;
+    border-top-left-radius:.4rem;
+    border-top-right-radius:.4rem;
+}
+
+.padded-boxes img{
+    width: 30px;
+    margin-left: 10px;
+}
+
+/* padded content */
+.padded-boxes .padded {
+    padding:.1rem 1rem;
+}
+
+/* tablet breakpoint */
+@media (min-width:768px) {
+    .padded-boxes > * {
+        width:calc((100% - 4rem) / 4);
+    }
+}
+
+.container{
+    width:100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2c86b9, #182466);
+}
+/*main white box*/
+.scrum-app{
+    width: 100%;
+    max-width: 320px;
+    background: #fff;
+    margin: auto;
+    padding: 25px 5px 70px;
+    border-radius: 10px;
+}
+
+/*input line*/
+.row{
+    display: flex;
+    align-items: centre;
+    justify-content: space-between;
+    background: #dfdfe0;
+    border-radius: 30px;
+    margin-bottom: 25px;
+}
+input{
+    max-width: 200px;
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-weight: 14px;
+}
+
+/*add button*/
+button{
+    max-width: 70px;
+    border: none;
+    outline: none;
+    padding: 16px 20px;
+    background: #3555a6;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+ul li{
+    list-style: none;
+    font-size: 16px;
+    padding: 12px 60px 12px 8px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+}
+
+/*check images*/
+ul li::before{
+    content:'';
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    border-radius: 30px;
+    background-image: url(images/unchecked.png);
+    background-size: cover;
+    background-position: left;
+    top: 12px;
+    left:8px;
+}
+ul li.checked{
+    color: #555;
+    text-decoration: line-through;
+}
+ul li.checked::before{
+    background-image: url(images/checked.png);
+}
+
+/*'x' button to delete*/
+ul li span{
+    position: absolute;
+    right:18px;
+    top: 5px;
+    width: 20px;
+    height: 40px;
+    font-size: 22px;
+    color: #555;
+    line-height: 40px;
+    text-align: center;
+}
+ul li span:hover{
+    background: #dfdfe0;
+    border-radius: 30px;
+}
+
+/*'arrow' button to move up*/
+ul li span2{
+    position: absolute;
+    right:40px;
+    top: 5px;
+    width: 20px;
+    height: 40px;
+    font-size: 22px;
+    color: #ff0000;
+    line-height: 40px;
+    text-align: center;
+}
+
+ul li span2:hover{
+    background: #dfdfe0;
+    border-radius: 30px;
+}
+/*down*/
+ul li span3{
+    position: absolute;
+    right:-4px;
+    top: 5px;
+    width: 20px;
+    height: 40px;
+    font-size: 22px;
+    color: #3d257c;
+    line-height: 40px;
+    text-align: center;
+}
+
+ul li span3:hover{
+    background: #dfdfe0;
+    border-radius: 30px;
+}
