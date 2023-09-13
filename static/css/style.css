@@ -222,10 +222,23 @@
         border-radius: 7px;
         padding: 0px 5px 20px;
         display: block;
-      }
+    }
+
+    .sortable-list li.placeholder {
+        height: 1.2em
+    }
+    
+    .item.ui-sortable-helper {
+        opacity: 0.6;
+    }
+
+    .placeholder {
+        border: 1px #5ea5ce;
+        background-color: transparent;
+    }
 
     .sortable-list .item {
-    list-style: none;
+    list-style-type: none;
     display: flex;
     cursor: move;
     background: white;

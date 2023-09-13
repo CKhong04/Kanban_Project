@@ -72,6 +72,30 @@ function showTask(){
 listContainer.innerHTML=localStorage.getItem("data")
 }
 
+// $(function() {
+//     $("#todo, #doing, #done").sortable({
+//         connectWith: "ul",
+//         placeholder: "placeholder",
+//         delay: 150
+//     })
+//     .disableSelection()
+//     .dblclick( function(e) {
+//         var item = e.target;
+//         if (e.currentTarget.id === 'todo') {
+//             $(item).fadeOut('fast', function() {
+//     $(item).appendTo($('doing')).fadeIn('slow') || $(item).appendTo($('done')).fadeIn('slow') ;
+//             })
+//         } else if (e.currentTarget.id === 'doing') {
+//             $(item).fadeOut('fast', function() {
+//     $(item).appendTo($('todo')).fadeIn('slow') || $(item).appendTo($('done')).fadeIn('slow') 
+//     ;
+//             })
+//         } else {
+//     $(item).appendTo($('todo')).fadeIn('slow') || $(item).appendTo($('doing')).fadeIn('slow');
+//         }
+//     })
+// })
+
 //allowing the user to drag and drop different items
 const sortableList = document.querySelector(".sortable-list");
 const items = sortableList.querySelectorAll(".item");
