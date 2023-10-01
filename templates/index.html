@@ -1,33 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agile2101</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Agile2101</title>
+	<!-- CSS Import -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+	<!-- End of CSS Import -->
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+	<!-- End of Fonts -->
 </head>
 <body>
-<div class="padded-boxes">
-<section>
-<h3 class="heading">Product Backlog <img src="{{ url_for('static', filename='images/icon.png') }}" alt="Icon"></h3>
-<div class="padded">
-<div class="container">
-<div class="scrum-app">
-<div class="row">
-<input type="text" id="input-box" placeholder="Add item here">
-<button onclick="addTask()"> Add</button>
-</div>
-<ul id="list-container">
-<!-- <li class="checked">Task1</li> -->
-<!-- <li>Task2</li>
-<li>Task3</li> -->
+	<!-- App Wrapper -->
+	<main class="app">
+		<!-- Greeting -->
+		<section class="greeting">
+			<h2 class="title">
+				Project: <input type="text" id="name" placeholder="Name here" />
+			</h2>
+		</section>
+		<!-- End of Greeting -->
+		
+		<!-- New Todo -->
+		<section class="create-todo">
+			<h3>Task Log</h3>
+			<form id="new-todo-form">
+				<h4>Add tasks</h4>
+				<input 
+					type="text" 
+					placeholder="Add your task here"
+					name="content"
+					id="content" />
+				
+				<h4>Category</h4>
+				<div class="options">
+					<label>
+						<input type="radio" name="category" id="category1" value="ui" /> 
+						<span class="bubble ui"></span>
+						<div>UI</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category2" value="ux" />
+						<span class="bubble ux"></span>
+						<div>UX</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category3" value="front-end" />
+						<span class="bubble front-end"></span>
+						<div>Front-End</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category4" value="back-end" />
+						<span class="bubble back-end"></span>
+						<div>Back-End</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category5" value="api" />
+						<span class="bubble api"></span>
+						<div>API</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category6" value="database" />
+						<span class="bubble database"></span>
+						<div>Database</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category7" value="framework" />
+						<span class="bubble framework"></span>
+						<div>Framework</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category8" value="testing" />
+						<span class="bubble testing"></span>
+						<div>Testing</div>
+					</label>
+				</div>
 
-</ul>
-</div>
-</div>
-</div>
-</section>
+				<input type="submit" value="Add Task" />
+			</form>
+		</section>
+		<!-- End of New Todo -->
+
+		<!-- Todo List -->
+		<section class="todo-list">
+			<h3>Product Backlog</h3>
+			<div class="list" id="todo-list" ></div>
+				<div class="list-content" id="individual-tasks" draggable="true"></div>
+		</section>
+		<!-- End of Todo List -->
+
+	</main>
+	<!-- End of App Wrapper -->
+
+	<!-- JS Import -->
+	<!-- End of JS Import -->
+</body>
+
 <section>
 <h3 class="heading">Sprint: To Do</h3>
 	<div class="padded">
@@ -109,4 +181,3 @@
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
-x

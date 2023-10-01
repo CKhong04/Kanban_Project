@@ -1,52 +1,292 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-    }
+/* Variables */
+:root {
+	--primary: #3b4ba0;
+	--ux: #ef5151;
+	--ui: #f5ae44;
+    --front-end: #e9f65f;
+    --back-end: #75f264;
+    --database: #6dbef0;
+    --testing: #2b5eaa;
+    --api: #842b8e;
+    --framework: #d993dc;
+	--light: #c1e6f3;
+	--grey: #888;
+	--dark: #313154;
+	--danger: #5ea5ce;
 
-    /* container */
-    .padded-boxes {
-    display:flex;
-    flex-wrap:wrap;
-    gap:1rem;
-    background-color: white;
-    }
+	--shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+/* End of Variables */
 
-    /* boxes */
-    .padded-boxes > * {
-    width:100%;
-    background:#eee;
-    border-radius:.2rem;
-    background: linear-gradient(135deg, #5ea5ce, #3b4ba0)
-    }
+/* Resets */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
 
-    /* heading */
-    .padded-boxes .heading {
-    background:#0e46a0;
-    color: white;
-    display: flex;
-    align-items: left;
-    margin-bottom: 20px;
-    padding:1.2rem;
-    border-top-left-radius:.4rem;
-    border-top-right-radius:.4rem;
-    }
+input:not([type="radio"]):not([type="checkbox"]), button {
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+	cursor: initial;
+}
+/* End of Resets */
+
+body {
+	background: linear-gradient(135deg, var(--light), #5ea5ce, #3b4ba0);
+	color: var(--dark);
+}
+
+section {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+}
+
+h3 {
+	color: var(--dark);
+	font-size: 1rem;
+	font-weight: 400;
+	margin-bottom: 0.5rem;
+}
+
+h4 {
+	color: var(--grey);
+	font-size: 0.875rem;
+	font-weight: 700;
+	margin-bottom: 0.5rem;
+}
+
+.greeting .title {
+	display: flex;
+}
+
+.greeting .title input {
+	margin-left: 0.5rem;
+	flex: 1 1 0%;
+	min-width: 0;
+}
+
+.greeting .title, 
+.greeting .title input {
+	color: var(--dark);
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+
+.create-todo input[type="text"] {
+	display: block;
+	width: 100%;
+	font-size: 1.125rem;
+	padding: 1rem 1.5rem;
+	color: var(--dark);
+	background-color: #f5f2f2;
+	border-radius: 0.5rem;
+	box-shadow: var(--shadow);
+	margin-bottom: 1.5rem;
+}
+
+.create-todo .options {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.create-todo .options label {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #f5f2f2;
+	padding: 1.5rem;
+	box-shadow: var(--shadow);
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+	display: none;
+}
+
+.bubble {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	border-radius: 999px;
+	border: 2px solid var(--ux);
+
+}
+
+.bubble.ui {
+	border-color: var(--ui);
+}
+
+.bubble.front-end {
+	border-color: var(--front-end);
+}
+
+.bubble.back-end {
+	border-color: var(--back-end);
+}
+
+.bubble.database {
+	border-color: var(--database);
+}
+
+.bubble.testing {
+	border-color: var(--testing);
+}
+
+.bubble.api {
+	border-color: var(--api);
+}
+
+.bubble.framework {
+	border-color: var(--framework);
+}
 
 
-    .padded-boxes img{
-    width: 30px;
-    margin-left: 10px;
-    margin-top: -7px;
-    }
+.bubble::after {
+	content: '';
+	display: block;
+	opacity: 0;
+	width: 0px;
+	height: 0px;
+	background-color: var(--ux);
+	border-radius: 999px;
+	transition: 0.2s ease-in-out;
+}
 
-    /* padded content */
-    .padded-boxes .padded {
-    padding:.1rem 1rem;
-    }
+.bubble.ui::after {
+	background-color: var(--ui);
+}
+
+.bubble.front-end::after{
+	background-color: var(--front-end);
+}
+
+.bubble.back-end::after{
+	background-color: var(--back-end);
+}
+
+.bubble.database::after {
+	background-color: var(--database);
+}
+
+.bubble.testing::after {
+	background-color: var(--testing);
+}
+
+.bubble.api::after{
+	background-color: var(--api);
+}
+
+.bubble.framework::after {
+	background-color: var(--framework);
+}
+
+input:checked ~ .bubble::after {
+	width: 10px;
+	height: 10px;
+	opacity: 1;
+}
+
+.create-todo .options label div {
+	color: var(--dark);
+	font-size: 1.125rem;
+	margin-top: 1rem;
+}
+
+.create-todo input[type="submit"] {
+	display: block;
+	width: 100%;
+	font-size: 1.125rem;
+	padding: 1rem 1.5rem;
+	color: #FFF;
+	font-weight: 700;
+	text-transform: uppercase;
+	background-color: var(--primary);
+
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: 0.2s ease-out;
+}
+
+.create-todo input[type="submit"]:hover {
+	opacity: 0.75;
+}
+
+.todo-list .list {
+	margin: 1rem 0;
+}
+
+.todo-list .todo-item {
+	display: flex;
+	align-items: center;
+	background-color: #f5f2f2;;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	box-shadow: var(--shadow);
+	margin-bottom: 1rem;
+}
+
+.todo-item label {
+	display: block;
+	margin-right: 1rem;
+	cursor: pointer;
+}
+
+.todo-item .todo-content {
+	flex: 1 1 0%;
+}
+
+.todo-item .todo-content input {
+	color: var(--dark);
+	font-size: 1.125rem;
+}
+
+.todo-item .actions {
+	display: flex;
+	align-items: center;
+}
+
+.todo-item .actions button {
+	display: block;
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+	color: #FFF;
+	cursor: pointer;
+	transition: 0.2s ease-in-out;
+}
+
+.todo-item .actions button:hover {
+	opacity: 0.75;
+}
+
+.todo-item .actions .edit {
+	margin-right: 0.5rem;
+	background-color: var(--primary);
+}
+
+.todo-item .actions .delete {
+	background-color: var(--danger);
+}
+
+.todo-item.done .todo-content input {
+	text-decoration: line-through;
+	color: var(--grey);
+}
 
 
-/* tablet breakpoint */
+/* tablet breakpoint  - previous iteration to split box into 4
 @media (min-width:768px) {
     .padded-boxes > * {
     width:calc((100% - 4rem) / 4);
@@ -57,18 +297,17 @@
     width:100%;
     min-height: 100vh;
     }
-    /*main white box*/
-    .scrum-app{
+    /* main white box*/
+    /* .scrum-app{
     width: 100%;
     max-width: 320px;
     background: #fff;
     margin: auto;
     padding: 25px 5px 70px;
     border-radius: 10px;
-    }
+    } */ 
 
-    /*input line*/
-    .row{
+.row{
     display: flex;
     align-items: centre;
     justify-content: space-between;
@@ -77,199 +316,96 @@
     margin-bottom: 25px;
     }
 
-    .red {
-    width: 100%;
-    max-width: 320px;
-    background: #e06868;
-    margin: auto;
-    padding: 25px 5px 70px;
-    border-radius: 10px;
-    min-height: 300px;
-    }
+.red {
+width: 100%;
+max-width: 320px;
+background: #e06868;
+margin: auto;
+padding: 25px 5px 70px;
+border-radius: 10px;
+min-height: 300px;
+}
 
-    .yellow{
-    width: 100%;
-    max-width: 320px;
-    background: #e6dc6f;
-    margin: auto;
-    padding: 25px 5px 70px;
-    border-radius: 10px;
-    min-height: 300px;
-    }
+.yellow{
+width: 100%;
+max-width: 320px;
+background: #e6dc6f;
+margin: auto;
+padding: 25px 5px 70px;
+border-radius: 10px;
+min-height: 300px;
+}
 
-    .green{
-    width: 100%;
-    max-width: 320px;
-    background: #33c550;
-    margin: auto;
-    padding: 25px 5px 70px;
-    border-radius: 10px;
-    min-height: 300px;
-    }
+.green{
+width: 100%;
+max-width: 320px;
+background: #33c550;
+margin: auto;
+padding: 25px 5px 70px;
+border-radius: 10px;
+min-height: 300px;
+}
 
-    input{
-    max-width: 200px;
-    flex: 1;
-    border: none;
-    outline: none;
+
+
+/* For the drag and droppable items */
+.sortable-list {
+    display: flex;
+    align-items: center;
+    width: 265px;
+    padding: 25px;
     background: transparent;
-    padding: 10px;
-    font-weight: 14px;
-    }
+    border-radius: 7px;
+    padding: 0px 5px 20px;
+    display: block;
+}
 
-    /*add button*/
-    button{
-    max-width: 70px;
-    border: none;
-    outline: none;
-    padding: 16px 20px;
-    background: #3555a6;
-    border-radius: 30px;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
+.sortable-list li.placeholder {
+    height: 1.2em
+}
 
-    }
-    ul li{
-    list-style: none;
-    font-size: 16px;
-    padding: 12px 60px 12px 8px;
-    user-select: none;
-    cursor: pointer;
-    position: relative;
-    }
-
-    /*check images*/
-    ul li::before{
-    content:'';
-    position: absolute;
-    height: 28px;
-    width: 28px;
-    border-radius: 30px;
-    background-image: url(images/unchecked.png);
-    background-size: cover;
-    background-position: left;
-    top: 12px;
-    left:8px;
-    }
-    ul li.checked{
-    color: #555;
-    text-decoration: line-through;
-    }
-    ul li.checked::before{
-    background-image: url(images/checked.png);
-    }
-
-    /*'x' button to delete*/
-    ul li span{
-    position: absolute;
-    right:18px;
-    top: 5px;
-    width: 20px;
-    height: 40px;
-    font-size: 22px;
-    color: #555;
-    line-height: 40px;
-    text-align: center;
-    }
-    ul li span:hover{
-    background: #dfdfe0;
-    border-radius: 30px;
-    }
-
-    /*'arrow' button to move up*/
-    ul li span2{
-    position: absolute;
-    right:40px;
-    top: 5px;
-    width: 20px;
-    height: 40px;
-    font-size: 22px;
-    color: #ff0000;
-    line-height: 40px;
-    text-align: center;
-    }
-
-    ul li span2:hover{
-    background: #dfdfe0;
-    border-radius: 30px;
-    }
-    /*down*/
-    ul li span3{
-    position: absolute;
-    right:-4px;
-    top: 5px;
-    width: 20px;
-    height: 40px;
-    font-size: 22px;
-    color: #3d257c;
-    line-height: 40px;
-    text-align: center;
-    }
-
-    ul li span3:hover{
-    background: #dfdfe0;
-    border-radius: 30px;
-    }
-
-    /* For the drag and droppable items */
-    .sortable-list {
-        display: flex;
-        align-items: center;
-        width: 265px;
-        padding: 25px;
-        background: transparent;
-        border-radius: 7px;
-        padding: 0px 5px 20px;
-        display: block;
-    }
-
-    .sortable-list li.placeholder {
-        height: 1.2em
-    }
-    
-    .item.ui-sortable-helper {
-        opacity: 0.6;
-    }
-
-    .placeholder {
-        border: 1px #5ea5ce;
-        background-color: transparent;
-    }
-
-    .sortable-list .item {
-    list-style-type: none;
-    display: flex;
-    cursor: move;
-    background: white;
-    align-items: left;
-    border-radius: 5px;
-    margin-bottom: 11px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-    border: 1px solid #ccc;
-    justify-content: centre;
-    width: 250px;
-    }
-
-    .item .details span {
-    font-size: 16px;
-    justify-content: left;
-    display: flex;
-    align-items: centre;
-    margin-right:130px;
-    width: 80px;
-    }
-    .item i {
-    color: #474747;
-    font-size: 16px;
-    margin-left: 200px;
-    }
-
-    .item.dragging {
-        opacity: 0.6;
-    }
-
-    .item.dragging :where(i) {
+.item.ui-sortable-helper {
     opacity: 0.6;
-    justify-content: centre
+}
+
+.placeholder {
+    border: 1px #5ea5ce;
+    background-color: transparent;
+}
+
+.sortable-list .item {
+list-style-type: none;
+display: flex;
+cursor: move;
+background: white;
+align-items: left;
+border-radius: 5px;
+margin-bottom: 11px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+border: 1px solid #ccc;
+justify-content: centre;
+width: 250px;
+}
+
+.item .details span {
+font-size: 16px;
+justify-content: left;
+display: flex;
+align-items: centre;
+margin-right:130px;
+width: 80px;
+}
+.item i {
+color: #474747;
+font-size: 16px;
+margin-left: 200px;
+}
+
+.item.dragging {
+    opacity: 0.6;
+}
+
+.item.dragging :where(i) {
+opacity: 0.6;
+justify-content: centre
 }

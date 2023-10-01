@@ -1,101 +1,135 @@
-const inputBox= document.getElementById("input-box");
-const listContainer= document.getElementById("list-container");
+window.addEventListener('load', () => {
+	todos = JSON.parse(localStorage.getItem('todos')) || [];
+	const nameInput = document.querySelector('#name');
+	const newTodoForm = document.querySelector('#new-todo-form');
 
-// adding a task
-function addTask(){
-if(inputBox.value===''){
-alert("Box cannot be empty!")
+	const username = localStorage.getItem('username') || '';
+
+	nameInput.value = username;
+
+	nameInput.addEventListener('change', (e) => {
+		localStorage.setItem('username', e.target.value);
+	})
+
+	newTodoForm.addEventListener('submit', e => {
+		e.preventDefault();
+
+		const todo = {
+			content: e.target.elements.content.value,
+			category: e.target.elements.category.value,
+			done: false,
+			createdAt: new Date().getTime()
+		}
+
+		todos.push(todo);
+
+		localStorage.setItem('todos', JSON.stringify(todos));
+
+		// Reset the form
+		e.target.reset();
+
+		DisplayTodos()
+	})
+
+	DisplayTodos()
+})
+
+function DisplayTodos () {
+	const todoList = document.querySelector('#todo-list');
+    
+	todoList.innerHTML = "";
+    
+
+	todos.forEach(todo => {
+		const todoItem = document.createElement('div');
+		todoItem.classList.add('todo-item');
+
+		const label = document.createElement('label');
+		const input = document.createElement('input');
+		const span = document.createElement('span');
+		const content = document.createElement('div');
+		const actions = document.createElement('div');
+		const edit = document.createElement('button');
+		const deleteButton = document.createElement('button');
+
+		input.type = 'checkbox';
+		input.checked = todo.done;
+		span.classList.add('bubble');
+		if (todo.category == 'ui') {
+			span.classList.add('ui');
+        }else if( todo.category=='ux') {
+            span.classList.add('ux');
+        }else if( todo.category=='front-end') {
+            span.classList.add('front-end');
+        }else if( todo.category=='back-end') {
+            span.classList.add('back-end');
+        }else if( todo.category=='database') {
+            span.classList.add('database');
+        }else if( todo.category=='api') {
+            span.classList.add('api');
+        }else if( todo.category=='framework') {
+            span.classList.add('framework');
+		} else {
+			span.classList.add('testing');
+		}
+		content.classList.add('todo-content');
+		actions.classList.add('actions');
+		edit.classList.add('edit');
+		deleteButton.classList.add('delete');
+
+		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
+		edit.innerHTML = 'Edit';
+		deleteButton.innerHTML = 'Delete';
+
+		label.appendChild(input);
+		label.appendChild(span);
+		actions.appendChild(edit);
+		actions.appendChild(deleteButton);
+		todoItem.appendChild(label);
+		todoItem.appendChild(content);
+		todoItem.appendChild(actions);
+
+		todoList.appendChild(todoItem);
+
+		if (todo.done) {
+			todoItem.classList.add('done');
+		}
+		
+		input.addEventListener('change', (e) => {
+			todo.done = e.target.checked;
+			localStorage.setItem('todos', JSON.stringify(todos));
+
+			if (todo.done) {
+				todoItem.classList.add('done');
+			} else {
+				todoItem.classList.remove('done');
+			}
+
+			DisplayTodos()
+
+		})
+
+		edit.addEventListener('click', (e) => {
+			const input = content.querySelector('input');
+			input.removeAttribute('readonly');
+			input.focus();
+			input.addEventListener('blur', (e) => {
+				input.setAttribute('readonly', true);
+				todo.content = e.target.value;
+				localStorage.setItem('todos', JSON.stringify(todos));
+				DisplayTodos()
+
+			})
+		})
+
+		deleteButton.addEventListener('click', (e) => {
+			todos = todos.filter(t => t != todo);
+			localStorage.setItem('todos', JSON.stringify(todos));
+			DisplayTodos()
+		})
+
+	})
 }
-else{
-let li= document.createElement("li");
-li.innerHTML=inputBox.value;
-
-// adds to the list of tasks with option to 'span' / close
-listContainer.appendChild(li)
-let span= document.createElement("span");
-let span2= document.createElement("span2");
-let span3= document.createElement("span3");
-span.innerHTML="\u00d7";
-span2.innerHTML="\uD83E\uDC61"; //up arrow utf-16
-span3.innerHTML="\uD83E\uDC63"; //down arrow utf-16
-li.appendChild(span);
-li.appendChild(span2);
-li.appendChild(span3);
-
-}
-inputBox.value="";
-
-saveData();
-}
-
-listContainer.addEventListener("click", function(e){
-if(e.target.tagName==="LI"){
-
-// toggle for checking and unchecking a box
-e.target.classList.toggle("checked");
-saveData();
-}
-// toggle for deleting a box
-else if(e.target.tagName==="SPAN"){
-e.target.parentElement.remove();
-saveData();
-} else if (e.target.tagName === "SPAN2") {
-// Find the parent LI element
-const li = e.target.parentElement;
-
-// Check if it's not the first element
-if (li.previousElementSibling) {
-// Move the LI element up by inserting it before the previous sibling
-li.parentElement.insertBefore(li, li.previousElementSibling);
-saveData();
-}
-} else if (e.target.tagName === "SPAN3") {
-// Find the parent LI element
-const li = e.target.parentElement;
-
-// Check if it's not the last element
-if (li.nextElementSibling) {
-// Move the LI element down by inserting it after the next sibling
-li.parentElement.insertBefore(li.nextElementSibling, li);
-saveData();
-}
-}
-}, false);
-
-// saving all the tasks onto local machine
-function saveData(){
-localStorage.setItem("data", listContainer.innerHTML);
-}
-
-// retrieving local stored data each time program is opened
-function showTask(){
-listContainer.innerHTML=localStorage.getItem("data")
-}
-
-// $(function() {
-//     $("#todo, #doing, #done").sortable({
-//         connectWith: "ul",
-//         placeholder: "placeholder",
-//         delay: 150
-//     })
-//     .disableSelection()
-//     .dblclick( function(e) {
-//         var item = e.target;
-//         if (e.currentTarget.id === 'todo') {
-//             $(item).fadeOut('fast', function() {
-//     $(item).appendTo($('doing')).fadeIn('slow') || $(item).appendTo($('done')).fadeIn('slow') ;
-//             })
-//         } else if (e.currentTarget.id === 'doing') {
-//             $(item).fadeOut('fast', function() {
-//     $(item).appendTo($('todo')).fadeIn('slow') || $(item).appendTo($('done')).fadeIn('slow') 
-//     ;
-//             })
-//         } else {
-//     $(item).appendTo($('todo')).fadeIn('slow') || $(item).appendTo($('doing')).fadeIn('slow');
-//         }
-//     })
-// })
-
 //allowing the user to drag and drop different items
 const sortableList = document.querySelector(".sortable-list");
 const items = sortableList.querySelectorAll(".item");
@@ -122,6 +156,5 @@ const initSortableList = (e) => {
 sortableList.addEventListener("dragover", initSortableList);
 sortableList.addEventListener("dragenter", e => e.preventDefault());
 
-showTask();
-
 checkLogin();
+
