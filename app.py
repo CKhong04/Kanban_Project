@@ -1,4 +1,5 @@
- 
+from flask_sqlalchemy import SQLAlchemy
+
 from flask import (
     Flask,
     g,
@@ -23,7 +24,16 @@ users.append(User(id=1, username='Milni', password='password'))
 users.append(User(id=2, username='Chaitsee', password='password'))
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/task.db'
+db = SQLAlchemy(app)
 app.secret_key = 'FIT2101G24'
+
+
+class TaskDB(db.Model):
+    __tablename__ = "task"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True, nullable=False)
+    status = db.Column(db.String(50), nullable=False, default='To Do')
 
 @app.before_request
 def before_request():
@@ -59,7 +69,11 @@ def index():
     if not g.user:
         return redirect(url_for('login'))
 
-    return render_template('index.html')
+    tasks_todo = TaskDB.query.filter_by(status='To Do').all()
+    tasks_doing = TaskDB.query.filter_by(status='Doing').all()
+    tasks_done = TaskDB.query.filter_by(status='Done').all()
+
+    return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
 
 if __name__ == "__main__": 
     app.run(debug=True) # when launching flask into production env, set it to false 
