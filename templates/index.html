@@ -99,84 +99,62 @@
 	<!-- JS Import -->
 	<!-- End of JS Import -->
 </body>
+<section>
+    <h3 class="heading">Sprint: To Do</h3>
+    <div class="padded">
+        <div class="container">
+            <div class="red">
+                <ul id="todo" class="sortable-list">
+                    {% for task in tasks_todo %}
+                        <li class="item" draggable="true">
+                            <div class="details">
+                                <span>{{ task.name }}</span>
+                            </div>
+                            <i class="uil uil-draggabledots"></i>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section>
-<h3 class="heading">Sprint: To Do</h3>
-	<div class="padded">
-		<div class = "container">
-			<div class ="red">
-			<ul id="todo" class="sortable-list">
-				<li class="item" draggable="true">
-					<div class="details">
-					<span>Task 1</span>
-					</div>
-					<i class="uil uil-draggabledots"></i>
-				</li>
-				<li class="item" draggable="true">
-				<div class="details">
-				<span>Task 2</span>
-				</div>
-				<i class="uil uil-draggabledots"></i>
-				</li>
-				<li class="item" draggable="true">
-					<div class="details">
-					<span>Task 3</span>
-					</div>
-					<i class="uil uil-draggabledots"></i>
-				</li>
-				<li class="item" draggable="true">
-					<div class="details">
-					<span>Task 4</span>
-					</div>
-					<i class="uil uil-draggabledots"></i>
-				</li>
-			</ul>
-			</div>
-		</div>
-	</div>
+    <h3 class="heading">Sprint: Doing</h3>
+    <div class="padded">
+        <div class="yellow">
+            <ul id="doing" class="sortable-list">
+                {% for task in tasks_doing %}
+                    <li class="item" draggable="true">
+                        <div class="details">
+                            <span>{{ task.name }}</span>
+                        </div>
+                        <i class="uil uil-draggabledots"></i>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </section>
+
 <section>
-<h3 class="heading">Doing</h3>
-<div class="padded">
-<div class ="yellow">
-<ul id="doing" class="sortable-list">
-	<li class="item" draggable="true">
-		<div class="details">
-		<span>Task 5</span>
-		</div>
-		<i class="uil uil-draggabledots"></i>
-	</li>
-	<li class="item" draggable="true">
-		<div class="details">
-		<span>Task 6</span>
-		</div>
-		<i class="uil uil-draggabledots"></i>
-	</li>
-</ul>
-</div>
-</div>
+    <h3 class="heading">Done</h3>
+    <div class="padded">
+        <div class="green">
+            <ul id="done" class="sortable-list">
+                {% for task in tasks_done %}
+                    <li class="item" draggable="true">
+                        <div class="details">
+                            <span>{{ task.name }}</span>
+                        </div>
+                        <i class="uil uil-draggabledots"></i>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </section>
-<section>
-<h3 class="heading">Done</h3>
-<div class="padded">
-<div class ="green">
-<ul id="done" class="sortable-list">
-	<li class="item" draggable="true">
-		<div class="details">
-		<span>Task 7</span>
-		</div>
-		<i class="uil uil-draggabledots"></i>
-	</li>
-	<li class="item" draggable="true">
-		<div class="details">
-		<span>Task 8</span>
-		</div>
-		<i class="uil uil-draggabledots"></i>
-	</li>
-</ul>
-</div>
-</div>
-</section>
+
 </div>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>

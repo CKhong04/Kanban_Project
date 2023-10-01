@@ -11,3 +11,5 @@ Reference for dragging and dropping functionality: https://www.codingnepalweb.co
 Reference for the three column, flexible layout: https://matthewjamestaylor.com/3-column-layouts
 
 Reference for log in system in Flask : https://www.youtube.com/watch?v=2Zz97NVbH0U&t=1383s 
+
+Reference for the database and how to set it up: https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/
