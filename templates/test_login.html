@@ -85,6 +85,15 @@ label{
     font-weight: bold;  
 }
 
+.error-message {
+    color: #464646;
+    background-color: #ffffff; /* Background color for the error message */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+}
+
 
 </style>
 </head>
@@ -109,6 +118,9 @@ label{
     </div>
 
   </form>
+  {% if error %}
+  <div class="error-message">{{ error }}</div>
+  {% endif %}
 
 </div>
 </body>
