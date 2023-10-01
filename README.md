@@ -3,6 +3,7 @@
 EMC & Co.
 
 Youtube link ref: https://www.youtube.com/watch?v=G0jO8kUrg-I&ab_channel=GreatStack  
+Editted template ref: https://github.com/TylerPottsDev/yt-js-todo-2022/blob/master/index.html
 Youtube link ref for Flask : https://www.youtube.com/watch?v=GHvj1ivQ7ms
 
 Reference for dragging and dropping functionality: https://www.codingnepalweb.com/drag-and-drop-sortable-list-html-javascript/
