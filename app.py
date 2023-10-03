@@ -1,4 +1,4 @@
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 from flask import (
     Flask,
@@ -52,20 +52,21 @@ class Admin_Users(All_Users):
 
 users = []
 users.append(General_Users(id=1, username='mabe0012@student.monash.edu', password='password'))
-users.append(Admin_Users(id=2, username='milniabeysekara02@gmail.com', password=None))
+users.append(Admin_Users(id=2, username='milniabeysekara02@gmail.com', password='meow'))
 
 
-app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/task.db'
-# db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 app.secret_key = 'FIT2101G24'
+with app.app_context():
+    db.create_all()
 
 
-# class TaskDB(db.Model):
-#     __tablename__ = "task"
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(120), unique=True, nullable=False)
-#     status = db.Column(db.String(50), nullable=False, default='To Do')
+class TaskDB(db.Model):
+    __tablename__ = "task"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True, nullable=False)
+    status = db.Column(db.String(50), nullable=False, default='To Do')
 
 @app.before_request
 def before_request():
@@ -121,21 +122,19 @@ def login():
 
 @app.route('/update_password', methods=['GET', 'POST'])
 def update_password():
-    if not g.user:
-        return redirect(url_for('login'))
-
     if request.method == 'POST':
         username = request.form['username']
         new_password = request.form['new_password']
 
-        if username == g.user.username:
+        # Check if the provided username matches any user's username
+        user = next((u for u in users if u.username == username), None)
+
+        if user:
             if username in password_change_count and password_change_count[username] >= 3:
                 flash('Password change limit exceeded. Try again later.', 'error')
             else:
-                # Update the user's password in the 'users' list
-                for user in users:
-                    if user.username == username:
-                        user.password = bcrypt.generate_password_hash(new_password)
+                # Update the user's password
+                user.password = bcrypt.generate_password_hash(new_password)
 
                 if username in password_change_count:
                     password_change_count[username] += 1
@@ -143,33 +142,39 @@ def update_password():
                     password_change_count[username] = 1
 
                 flash('Password changed successfully.', 'success')
+                return redirect(url_for('login'))  # Redirect to the login page after successful password update
+
         else:
             flash('Invalid username. Password not changed.', 'error')
-
-        return redirect(url_for('login'))
 
     return render_template('update_password.html')
 
 
 
-@app.route('/index')
+@app.route('/index',methods=['GET', 'POST'])
 def index():
     if not g.user:
         return redirect(url_for('login'))
 
-    # tasks_todo = TaskDB.query.filter_by(status='To Do').all()
-    # tasks_doing = TaskDB.query.filter_by(status='Doing').all()
-    # tasks_done = TaskDB.query.filter_by(status='Done').all()
+    tasks_todo = TaskDB.query.filter_by(status='To Do').all()
+    tasks_doing = TaskDB.query.filter_by(status='Doing').all()
+    tasks_done = TaskDB.query.filter_by(status='Done').all()
 
-    # return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
-    return render_template('index.html')
+    return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
+    #return render_template('index.html')
 
 @app.route('/index_admin')
 def index_admin():
     if not g.user:
         return redirect(url_for('login'))
 
-    return render_template('index_admin.html')
+
+    tasks_todo = TaskDB.query.filter_by(status='To Do').all()
+    tasks_doing = TaskDB.query.filter_by(status='Doing').all()
+    tasks_done = TaskDB.query.filter_by(status='Done').all()
+
+    return render_template('index_admin.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
+
 
 if __name__ == "__main__": 
     app.run(debug=True) # when launching flask into production env, set it to false 

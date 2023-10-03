@@ -162,6 +162,66 @@
 	  </div>
 	</div>
   </div>
+
+<!-- Displaying the database -->
+<div class="board">
+	<h3>Database Testing</h3>
+
+    <div class="lanes">
+        <section class="swim-lane red">
+            <h3 class="heading">Sprint: To Do</h3>
+            <div class="padded">
+                <ul class="tasks-list" id="todo-lane">
+                    {% for task in tasks_todo %}
+                        <li class="tasks" draggable="true">
+                            <div class="item">
+                                <div class="details">
+                                    <span>{{ task.name }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+
+        <section class="swim-lane yellow">
+            <h3 class="heading">Sprint: Doing</h3>
+            <div class="padded">
+                <ul class="tasks-list" id="doing-lane">
+                    {% for task in tasks_doing %}
+                        <li class="tasks" draggable="true">
+                            <div class="item">
+                                <div class="details">
+                                    <span>{{ task.name }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+
+        <section class="swim-lane green">
+            <h3 class="heading">Done</h3>
+            <div class="padded">
+                <ul class="tasks-list" id="done-lane">
+                    {% for task in tasks_done %}
+                        <li class="tasks" draggable="true">
+                            <div class="item">
+                                <div class="details">
+                                    <span>{{ task.name }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- End of Displaying the database -->
+
 </body>
 </main>
 </div>>
