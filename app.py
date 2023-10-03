@@ -1,7 +1,8 @@
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 
 from flask import (
     Flask,
+    flash,
     g,
     redirect,
     render_template,
@@ -16,7 +17,7 @@ import random
 app = Flask(__name__)
 app.secret_key = 'FIT2101G24'
 bcrypt = Bcrypt(app)
-
+password_change_count = {}
 
 class All_Users(ABC): 
     def __init__(self, id:int, username:str, password:Bcrypt=None): 
@@ -51,20 +52,20 @@ class Admin_Users(All_Users):
 
 users = []
 users.append(General_Users(id=1, username='mabe0012@student.monash.edu', password='password'))
-users.append(Admin_Users(id=2, username='milniabeysekara02@gmail.com', password=None)) 
+users.append(Admin_Users(id=2, username='milniabeysekara02@gmail.com', password=None))
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/task.db'
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 app.secret_key = 'FIT2101G24'
 
 
-class TaskDB(db.Model):
-    __tablename__ = "task"
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    status = db.Column(db.String(50), nullable=False, default='To Do')
+# class TaskDB(db.Model):
+#     __tablename__ = "task"
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(120), unique=True, nullable=False)
+#     status = db.Column(db.String(50), nullable=False, default='To Do')
 
 @app.before_request
 def before_request():
@@ -115,17 +116,53 @@ def login():
     return render_template('test_login.html')
 
 #Note: both index and index_admin share the same information, if edits are made to general users , 
-# edits are made to admin as well. 
+# edits are made to admin as well.
+
+
+@app.route('/update_password', methods=['GET', 'POST'])
+def update_password():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        username = request.form['username']
+        new_password = request.form['new_password']
+
+        if username == g.user.username:
+            if username in password_change_count and password_change_count[username] >= 3:
+                flash('Password change limit exceeded. Try again later.', 'error')
+            else:
+                # Update the user's password in the 'users' list
+                for user in users:
+                    if user.username == username:
+                        user.password = bcrypt.generate_password_hash(new_password)
+
+                if username in password_change_count:
+                    password_change_count[username] += 1
+                else:
+                    password_change_count[username] = 1
+
+                flash('Password changed successfully.', 'success')
+        else:
+            flash('Invalid username. Password not changed.', 'error')
+
+        return redirect(url_for('login'))
+
+    return render_template('update_password.html')
+
+
+
 @app.route('/index')
 def index():
     if not g.user:
         return redirect(url_for('login'))
 
-    tasks_todo = TaskDB.query.filter_by(status='To Do').all()
-    tasks_doing = TaskDB.query.filter_by(status='Doing').all()
-    tasks_done = TaskDB.query.filter_by(status='Done').all()
+    # tasks_todo = TaskDB.query.filter_by(status='To Do').all()
+    # tasks_doing = TaskDB.query.filter_by(status='Doing').all()
+    # tasks_done = TaskDB.query.filter_by(status='Done').all()
 
-    return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
+    # return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
+    return render_template('index.html')
 
 @app.route('/index_admin')
 def index_admin():
