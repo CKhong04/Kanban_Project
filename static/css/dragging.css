@@ -1,0 +1,109 @@
+/* ---- RESET/BASIC STYLING ---- */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .board {
+    width: 100%;
+    height: 100vh;
+    overflow: scroll;
+  }
+
+  /* ---- BOARD ---- */
+  .lanes {
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+    gap: 16px;
+  
+    padding: 24px 32px;
+  
+    overflow: scroll;
+    height: 100%;
+  }
+  
+  .heading {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    margin-top: 8px;
+  }
+  
+  .swim-lane {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+  
+    padding: 12px;
+    padding-bottom: 0px;
+    border-radius: 6px;
+    width: 450px;
+    min-height: 120px;
+  
+    flex-shrink: 0;
+  }
+
+  .red {
+    background: #e06868;
+    width: 450px;
+    min-height: 132px;
+    margin-left: -12px;
+    margin-top: -12px;
+    padding-bottom: 20px;
+    border-radius: 6px;
+  }
+
+  .yellow {
+    background: #e6dc6f;
+    width: 450px;
+    min-height: 132px;
+    margin-left: -12px;
+    margin-top: -12px;
+    padding-bottom: 20px;
+    border-radius: 6px;
+  }
+
+  .green {
+    background: #33c550;
+    width: 450px;
+    min-height: 132px;
+    margin-left: -12px;
+    margin-top: -12px;
+    padding-bottom: 20px;
+    border-radius: 6px;
+  }
+  
+  .tasks {
+    background: white;
+    color: black;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+  
+    padding: 12px;
+    border-radius: 4px;
+    margin: 10px;
+    margin-bottom: -8px; 
+  
+    font-size: 16px;
+    cursor: move;
+  }
+  
+  .is-dragging {
+    scale: 1.05;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+    background: rgb(50, 50, 50);
+    color: white;
+  }
