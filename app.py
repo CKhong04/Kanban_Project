@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask import (
     Flask,
-    flash,
     g,
     redirect,
     render_template,
@@ -14,6 +13,7 @@ from abc import ABC
 from flask_bcrypt import Bcrypt
 import string
 import random 
+import os
 app = Flask(__name__)
 app.secret_key = 'FIT2101G24'
 bcrypt = Bcrypt(app)
@@ -52,14 +52,15 @@ class Admin_Users(All_Users):
 
 users = []
 users.append(General_Users(id=1, username='mabe0012@student.monash.edu', password='password'))
-users.append(Admin_Users(id=2, username='milniabeysekara02@gmail.com', password='meow'))
+users.append(Admin_Users(id=2, username='milniabeysekara02@gmail.com', password=None)) 
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/task.db'
+app = Flask(__name__)
+db_path = os.path.join(os.path.dirname(__file__), 'app.db')
+db_uri = 'sqlite:///{}'.format(db_path)
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 db = SQLAlchemy(app)
 app.secret_key = 'FIT2101G24'
-with app.app_context():
-    db.create_all()
 
 
 class TaskDB(db.Model):
@@ -67,6 +68,9 @@ class TaskDB(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     status = db.Column(db.String(50), nullable=False, default='To Do')
+
+with app.app_context():
+    db.create_all()
 
 @app.before_request
 def before_request():
@@ -149,9 +153,7 @@ def update_password():
 
     return render_template('update_password.html')
 
-
-
-@app.route('/index',methods=['GET', 'POST'])
+@app.route('/index')
 def index():
     if not g.user:
         return redirect(url_for('login'))
@@ -161,19 +163,17 @@ def index():
     tasks_done = TaskDB.query.filter_by(status='Done').all()
 
     return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
-    #return render_template('index.html')
 
 @app.route('/index_admin')
 def index_admin():
     if not g.user:
         return redirect(url_for('login'))
 
-
     tasks_todo = TaskDB.query.filter_by(status='To Do').all()
     tasks_doing = TaskDB.query.filter_by(status='Doing').all()
     tasks_done = TaskDB.query.filter_by(status='Done').all()
 
-    return render_template('index_admin.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
+    return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
 
 
 if __name__ == "__main__": 
