@@ -7,6 +7,7 @@ from flask import (
     render_template,
     request,
     session,
+    flash,
     url_for
 )
 from abc import ABC
