@@ -246,11 +246,14 @@ input:checked ~ .bubble::after {
 
 .todo-item .todo-content {
 	flex: 1 1 0%;
+	width: 600px;
+	overflow-wrap: normal;
 }
 
 .todo-item .todo-content input {
 	color: var(--dark);
 	font-size: 1.125rem;
+	width: 1200px;
 }
 
 .todo-item .actions {

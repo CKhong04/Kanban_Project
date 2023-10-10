@@ -121,7 +121,7 @@
 		<section class="todo-list">
 			<h3>Product Backlog</h3>
 			<div class="list" id="todo-list" ></div>
-				<div class="list-content" id="individual-tasks" draggable="true"></div>
+				<p class="list-content" id="individual-tasks" draggable="true"></p>
 		</section>
 		<!-- End of Todo List -->
 
@@ -130,35 +130,30 @@
 
 	<!-- The Sprint Board, including the three statuses -->
 <div class="board">
+	<h2>Current Sprint Backlog</h2>
 
 	<div class="lanes">
 	  <div class="swim-lane" id="todo-lane">
-	   <div class = "red">
 		<h3 class="heading">Sprint: To-Do</h3>
 
 		<p class="tasks" draggable="true">Task 1</p>
 		<p class="tasks" draggable="true">Task 2</p>
 		<p class="tasks" draggable="true">Task 3</p>
 	  </div>
-	  </div>
 
-	  <div class="swim-lane">
-		  <div class = "yellow">
+	  <div class="swim-lane" id="doing-lane">
 		<h3 class="heading">Sprint: Doing</h3>
 
 		<p class="tasks" draggable="true">Task 4</p>
 		<p class="tasks" draggable="true">Task 5</p>
 	  </div>
-	  </div>
 
-	  <div class="swim-lane">
-		  <div class = "green">
+	  <div class="swim-lane" id="done-lane">
 		<h3 class="heading">Sprint: Done</h3>
 
 		<p class="tasks" draggable="true">Task 6</p>
 		<p class="tasks" draggable="true">Task 7</p>
 		<p class="tasks" draggable="true">Task 8</p>
-	  </div>
 	  </div>
 	</div>
   </div>
