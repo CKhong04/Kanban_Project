@@ -69,7 +69,7 @@
   #todo-lane{
     background: #e06868;
     gap: 12px;
-    width: 450px;
+    width: 33%;
     min-height: 132px;
     margin-left: -12px;
     margin-top: -12px;
@@ -79,7 +79,7 @@
 
   #doing-lane {
     background: #e6dc6f;
-    width: 450px;
+    width: 33%;
     min-height: 132px;
     margin-top: -12px;
     padding-bottom: 20px;
@@ -88,7 +88,7 @@
 
   #done-lane {
     background: #33c550;
-    width: 450px;
+    width: 33%;
     min-height: 132px;
     margin-top: -12px;
     padding-bottom: 20px;
