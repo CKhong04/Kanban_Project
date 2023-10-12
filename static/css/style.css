@@ -280,7 +280,12 @@ input:checked ~ .bubble::after {
 }
 
 .todo-item .actions .delete {
+	margin-right: 0.5rem;
 	background-color: var(--danger);
+}
+
+.todo-item .actions .add	{
+	background-color: green;
 }
 
 .todo-item.done .todo-content input {

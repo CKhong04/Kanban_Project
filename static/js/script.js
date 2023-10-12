@@ -51,6 +51,8 @@ function DisplayTodos () {
 		const actions = document.createElement('div');
 		const edit = document.createElement('button');
 		const deleteButton = document.createElement('button');
+		const addToSprintButton = document.createElement('button');
+		const todoLane = document.getElementById("todo-lane");
 
 		input.type = 'checkbox';
 		input.checked = todo.done;
@@ -76,15 +78,18 @@ function DisplayTodos () {
 		actions.classList.add('actions');
 		edit.classList.add('edit');
 		deleteButton.classList.add('delete');
+		addToSprintButton.classList.add('add');
 
 		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
 		edit.innerHTML = 'Edit';
 		deleteButton.innerHTML = 'Delete';
+		addToSprintButton.innerHTML = 'Add to Sprint';
 
 		label.appendChild(input);
 		label.appendChild(span);
 		actions.appendChild(edit);
 		actions.appendChild(deleteButton);
+		actions.appendChild(addToSprintButton);
 		todoItem.appendChild(label);
 		todoItem.appendChild(content);
 		todoItem.appendChild(actions);
@@ -128,33 +133,74 @@ function DisplayTodos () {
 			DisplayTodos()
 		})
 
+		addToSprintButton.addEventListener('click', (e) => {
+			const input = content.querySelector('input');
+			todoLane.appendChild(todoItem)
+			// todos = todos.filter(t => t != todo);
+			// localStorage.setItem('todos', JSON.stringify(todos));
+			// DisplayTodos()
+		})
+
+		todoItem.classList.add("tasks");
+		todoItem.setAttribute("draggable", "true");
+		
+		todoItem.addEventListener("dragstart", () => {
+			todoItem.classList.add("is-dragging");
+		});
+
+		todoItem.addEventListener("dragend", () => {
+			todoItem.classList.remove("is-dragging");
+		});
+
 	})
 }
-//allowing the user to drag and drop different items
-const sortableList = document.querySelector(".sortable-list");
-const items = sortableList.querySelectorAll(".item");
-items.forEach(item => {
-item.addEventListener("dragstart", () => {
-// Adding dragging class to item after a delay
-    setTimeout(() => item.classList.add("dragging"), 0);
+
+const draggables = document.querySelectorAll(".tasks");
+const droppables = document.querySelectorAll(".swim-lane");
+
+draggables.forEach((tasks) => {
+  tasks.setAttribute("draggable", "true")
+  tasks.addEventListener("dragstart", () => {
+    tasks.classList.add("is-dragging");
+  });
+  tasks.addEventListener("dragend", () => {
+    tasks.classList.remove("is-dragging");
+  });
 });
-// Removing dragging class from item on dragend event
-item.addEventListener("dragend", () => item.classList.remove("dragging"));
-});
-const initSortableList = (e) => {
+
+droppables.forEach((zone) => {
+  zone.addEventListener("dragover", (e) => {
     e.preventDefault();
-    const draggingItem = document.querySelector(".dragging");
-    // Getting all items except currently dragging and making array of them
-    let siblings = [...sortableList.querySelectorAll(".item:not(.dragging)")];
-    // Finding the sibling after which the dragging item should be placed
-    let nextSibling = siblings.find(sibling => {
-        return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
-    });
-    // Inserting the dragging item before the found sibling
-    sortableList.insertBefore(draggingItem, nextSibling);
-}
-sortableList.addEventListener("dragover", initSortableList);
-sortableList.addEventListener("dragenter", e => e.preventDefault());
 
-checkLogin();
+    const bottomTask = insertAboveTask(zone, e.clientY);
+    const curTask = document.querySelector(".is-dragging");
 
+    if (!bottomTask) {
+      zone.appendChild(curTask);
+    } else {
+      zone.insertBefore(curTask, bottomTask);
+    }
+  });
+
+  zone.addEventListener("dragenter", e => e.preventDefault());
+});
+
+const insertAboveTask = (zone, mouseY) => {
+  const els = zone.querySelectorAll(".tasks:not(.is-dragging)");
+
+  let closestTask = null;
+  let closestOffset = Number.NEGATIVE_INFINITY;
+
+  els.forEach((tasks) => {
+    const { top } = tasks.getBoundingClientRect();
+
+    const offset = mouseY - top;
+
+    if (offset < 0 && offset > closestOffset) {
+      closestOffset = offset;
+      closestTask = tasks;
+    }
+  });
+
+  return closestTask;
+};
