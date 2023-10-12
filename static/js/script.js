@@ -136,9 +136,9 @@ function DisplayTodos () {
 		addToSprintButton.addEventListener('click', (e) => {
 			const input = content.querySelector('input');
 			todoLane.appendChild(todoItem)
-			// todos = todos.filter(t => t != todo);
-			// localStorage.setItem('todos', JSON.stringify(todos));
-			// DisplayTodos()
+			todos = todos.filter(t => t != todo);
+			localStorage.setItem('todos', JSON.stringify(todos));
+			DisplayTodos()
 		})
 
 		todoItem.classList.add("tasks");
