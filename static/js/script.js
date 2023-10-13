@@ -43,15 +43,26 @@ function DisplayTodos () {
 	todos.forEach(todo => {
 		const todoItem = document.createElement('div');
 		todoItem.classList.add('todo-item');
+		todoItem.classList.add("tasks"); //Add this to the tasks class, enabling drag and drop below.
+		todoItem.setAttribute("draggable", "true"); //Make the item able to be draggable.
+		
+		todoItem.addEventListener("dragstart", () => { //Allow the item to know when it is being dragged
+			todoItem.classList.add("is-dragging");
+		});
+
+		todoItem.addEventListener("dragend", () => { //Allow the item to know when it has stopped being dragged
+			todoItem.classList.remove("is-dragging");
+		});
 
 		const label = document.createElement('label');
 		const input = document.createElement('input');
 		const span = document.createElement('span');
-		const content = document.createElement('div');
+		const content = document.createElement('p');
 		const actions = document.createElement('div');
 		const edit = document.createElement('button');
 		const deleteButton = document.createElement('button');
 		const addToSprintButton = document.createElement('button');
+		const removeFromSprintButton = document.createElement('button');
 		const todoLane = document.getElementById("todo-lane");
 
 		input.type = 'checkbox';
@@ -79,18 +90,20 @@ function DisplayTodos () {
 		edit.classList.add('edit');
 		deleteButton.classList.add('delete');
 		addToSprintButton.classList.add('add');
+		removeFromSprintButton.classList.add('removeSprint');
 
 		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
 		edit.innerHTML = 'Edit';
 		deleteButton.innerHTML = 'Delete';
 		addToSprintButton.innerHTML = 'Add to Sprint';
+		removeFromSprintButton.innerHTML = 'Remove from Sprint';
 
 		label.appendChild(input);
 		label.appendChild(span);
 		actions.appendChild(edit);
 		actions.appendChild(deleteButton);
 		actions.appendChild(addToSprintButton);
-		todoItem.appendChild(label);
+		todoItem.appendChild(label);;
 		todoItem.appendChild(content);
 		todoItem.appendChild(actions);
 
@@ -134,23 +147,21 @@ function DisplayTodos () {
 		})
 
 		addToSprintButton.addEventListener('click', (e) => {
-			const input = content.querySelector('input');
-			todoLane.appendChild(todoItem)
+			todoItem.style.width = "100%";
+			todoItem.style.display = "flex";
+			todoItem.removeChild(actions);
+			todoItem.appendChild(removeFromSprintButton);
+			todoLane.appendChild(todoItem);
 			todos = todos.filter(t => t != todo);
 			localStorage.setItem('todos', JSON.stringify(todos));
 			DisplayTodos()
 		})
 
-		todoItem.classList.add("tasks");
-		todoItem.setAttribute("draggable", "true");
-		
-		todoItem.addEventListener("dragstart", () => {
-			todoItem.classList.add("is-dragging");
-		});
-
-		todoItem.addEventListener("dragend", () => {
-			todoItem.classList.remove("is-dragging");
-		});
+		removeFromSprintButton.addEventListener('click', (e) => {
+			todoItem.appendChild(actions);
+			todoItem.removeChild(removeFromSprintButton);
+			todoList.appendChild(todoItem);
+		})
 
 	})
 }
