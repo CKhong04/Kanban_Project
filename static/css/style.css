@@ -274,6 +274,11 @@ input:checked ~ .bubble::after {
 	background-color: var(--primary);
 }
 
+.todo-item .actions .edit-person {
+	margin-right: 0.5rem;
+	background-color: var(--primary);
+}
+
 .todo-item .actions .delete {
 	margin-right: 0.5rem;
 	background-color: var(--danger);

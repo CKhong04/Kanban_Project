@@ -66,6 +66,7 @@ function DisplayTodos () {
 		const addToSprintButton = document.createElement('button');
 		const removeFromSprintButton = document.createElement('button');
 		const todoLane = document.getElementById("todo-lane");
+		const editPerson= document.createElement('button');
 
 
 		input.type = 'checkbox';
@@ -92,11 +93,13 @@ function DisplayTodos () {
 		actions.classList.add('actions');
 		edit.classList.add('edit');
 		deleteButton.classList.add('delete');
+		editPerson.classList.add('edit-person');
 		addToSprintButton.classList.add('add');
 		removeFromSprintButton.classList.add('removeSprint');
 
 		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
 		edit.innerHTML = 'Edit';
+		editPerson.innerHTML='Edit Person';
 		deleteButton.innerHTML = 'Delete';
 		addToSprintButton.innerHTML = 'Add to Sprint';
 		removeFromSprintButton.innerHTML = 'Remove from Sprint';
@@ -106,6 +109,7 @@ function DisplayTodos () {
 		label.appendChild(input);
 		label.appendChild(span);
 		actions.appendChild(edit);
+		actions.appendChild(editPerson);
 		actions.appendChild(deleteButton);
 		actions.appendChild(addToSprintButton);
 		todoItem.appendChild(label);;
@@ -113,7 +117,7 @@ function DisplayTodos () {
 
 		// Display 'who is doing this task' on the task tile
 		const personContent = document.createElement('p');
-		personContent.innerHTML =  `<input type="text" value="Assigned to: ${todo.personcontent}" readonly>`; 
+		personContent.innerHTML =  `<input type="text" value="${todo.personcontent}" readonly>`; 
 		todoItem.appendChild(personContent);
 		
 		todoItem.appendChild(actions);
@@ -152,6 +156,18 @@ function DisplayTodos () {
 
 			})
 		})
+
+		editPerson.addEventListener('click', (e) => {
+			const input = personContent.querySelector('input');
+			input.removeAttribute('readonly');
+			input.focus();
+			input.addEventListener('blur', (e) => {
+				input.setAttribute('readonly', true);
+				todo.personcontent = e.target.value; // Corrected property name
+				localStorage.setItem('todos', JSON.stringify(todos));
+				DisplayTodos();
+			});
+		});
 
 		deleteButton.addEventListener('click', (e) => {
 			todos = todos.filter(t => t != todo);
