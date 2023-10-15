@@ -17,6 +17,7 @@ window.addEventListener('load', () => {
 		const todo = {
 			content: e.target.elements.content.value,
 			category: e.target.elements.category.value,
+			personcontent: e.target.elements.personcontent.value,
 			done: false,
 			createdAt: new Date().getTime()
 		}
@@ -54,6 +55,7 @@ function DisplayTodos () {
 			todoItem.classList.remove("is-dragging");
 		});
 
+
 		const label = document.createElement('label');
 		const input = document.createElement('input');
 		const span = document.createElement('span');
@@ -64,6 +66,7 @@ function DisplayTodos () {
 		const addToSprintButton = document.createElement('button');
 		const removeFromSprintButton = document.createElement('button');
 		const todoLane = document.getElementById("todo-lane");
+
 
 		input.type = 'checkbox';
 		input.checked = todo.done;
@@ -98,6 +101,8 @@ function DisplayTodos () {
 		addToSprintButton.innerHTML = 'Add to Sprint';
 		removeFromSprintButton.innerHTML = 'Remove from Sprint';
 
+
+
 		label.appendChild(input);
 		label.appendChild(span);
 		actions.appendChild(edit);
@@ -105,7 +110,15 @@ function DisplayTodos () {
 		actions.appendChild(addToSprintButton);
 		todoItem.appendChild(label);;
 		todoItem.appendChild(content);
+
+		// Display 'who is doing this task' on the task tile
+		const personContent = document.createElement('p');
+		personContent.innerHTML =  `<input type="text" value="Assigned to: ${todo.personcontent}" readonly>`; 
+		todoItem.appendChild(personContent);
+		
 		todoItem.appendChild(actions);
+
+		
 
 		todoList.appendChild(todoItem);
 
