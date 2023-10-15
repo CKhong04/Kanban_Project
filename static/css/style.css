@@ -268,16 +268,6 @@ input:checked ~ .bubble::after {
 	opacity: 0.75;
 }
 
-.todo-item .actions .edit {
-	margin-right: 0.5rem;
-	background-color: var(--primary);
-}
-
-.todo-item .actions .edit-person {
-	margin-right: 0.5rem;
-	background-color: var(--primary);
-}
-
 .todo-item .actions .delete {
 	margin-right: 0.5rem;
 	background-color: var(--danger);
