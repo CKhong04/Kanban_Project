@@ -61,12 +61,10 @@ function DisplayTodos () {
 		const span = document.createElement('span');
 		const content = document.createElement('p');
 		const actions = document.createElement('div');
-		const edit = document.createElement('button');
 		const deleteButton = document.createElement('button');
 		const addToSprintButton = document.createElement('button');
 		const removeFromSprintButton = document.createElement('button');
 		const todoLane = document.getElementById("todo-lane");
-		const editPerson= document.createElement('button');
 
 
 		input.type = 'checkbox';
@@ -91,15 +89,11 @@ function DisplayTodos () {
 		}
 		content.classList.add('todo-content');
 		actions.classList.add('actions');
-		edit.classList.add('edit');
 		deleteButton.classList.add('delete');
-		editPerson.classList.add('edit-person');
 		addToSprintButton.classList.add('add');
 		removeFromSprintButton.classList.add('removeSprint');
 
 		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
-		edit.innerHTML = 'Edit';
-		editPerson.innerHTML='Edit Person';
 		deleteButton.innerHTML = 'Delete';
 		addToSprintButton.innerHTML = 'Add to Sprint';
 		removeFromSprintButton.innerHTML = 'Remove from Sprint';
@@ -108,8 +102,6 @@ function DisplayTodos () {
 
 		label.appendChild(input);
 		label.appendChild(span);
-		actions.appendChild(edit);
-		actions.appendChild(editPerson);
 		actions.appendChild(deleteButton);
 		actions.appendChild(addToSprintButton);
 		todoItem.appendChild(label);;
@@ -121,8 +113,6 @@ function DisplayTodos () {
 		todoItem.appendChild(personContent);
 		
 		todoItem.appendChild(actions);
-
-		
 
 		todoList.appendChild(todoItem);
 
@@ -144,7 +134,7 @@ function DisplayTodos () {
 
 		})
 
-		edit.addEventListener('click', (e) => {
+		content.addEventListener('dblclick', (e) => {
 			const input = content.querySelector('input');
 			input.removeAttribute('readonly');
 			input.focus();
@@ -157,7 +147,7 @@ function DisplayTodos () {
 			})
 		})
 
-		editPerson.addEventListener('click', (e) => {
+		personContent.addEventListener('dblclick', (e) => {
 			const input = personContent.querySelector('input');
 			input.removeAttribute('readonly');
 			input.focus();
@@ -165,7 +155,7 @@ function DisplayTodos () {
 				input.setAttribute('readonly', true);
 				todo.personcontent = e.target.value; // Corrected property name
 				localStorage.setItem('todos', JSON.stringify(todos));
-				DisplayTodos();
+				DisplayTodos()
 			});
 		});
 
@@ -178,6 +168,7 @@ function DisplayTodos () {
 		addToSprintButton.addEventListener('click', (e) => {
 			todoItem.style.width = "100%";
 			todoItem.style.display = "flex";
+			span.style.marginTop = "12px";
 			todoItem.removeChild(actions);
 			todoItem.appendChild(removeFromSprintButton);
 			todoLane.appendChild(todoItem);
@@ -190,6 +181,7 @@ function DisplayTodos () {
 			todoItem.appendChild(actions);
 			todoItem.removeChild(removeFromSprintButton);
 			todoList.appendChild(todoItem);
+			// DisplayTodos() //This doesn't work atm, I need to fix it
 		})
 
 	})

@@ -115,7 +115,6 @@ input[type="checkbox"] {
 	height: 20px;
 	border-radius: 999px;
 	border: 2px solid var(--ux);
-
 }
 
 .bubble.ui {
@@ -291,10 +290,14 @@ input:checked ~ .bubble::after {
 .todo-item .removeSprint {
 	display: flex;
 	align-items: center;
+	margin: 0px;
 	border-radius: 0.25rem;
 	cursor: pointer;
 	padding: 0.1rem;
 	background-color: #6dbef0;
+	color: white;
+	font-size: 11px;
+	width: 15%;
 }
 
 .todo-item.done .todo-content input {
