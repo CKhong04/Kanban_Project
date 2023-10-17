@@ -19,12 +19,6 @@
 /* End of Variables */
 
 /* Resets */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
-}
 
 input:not([type="radio"]):not([type="checkbox"]), button {
 	appearance: none;
@@ -51,7 +45,6 @@ h3 {
 	color: var(--dark);
 	font-size: 1rem;
 	font-weight: 400;
-	margin-bottom: 0.5rem;
 }
 
 h4 {
@@ -122,7 +115,6 @@ input[type="checkbox"] {
 	height: 20px;
 	border-radius: 999px;
 	border: 2px solid var(--ux);
-
 }
 
 .bubble.ui {
@@ -224,18 +216,19 @@ input:checked ~ .bubble::after {
 	opacity: 0.75;
 }
 
-.todo-list .list {
+.todo-list .swim-lane {
 	margin: 1rem 0;
+	width: 100%;
+	box-shadow: none;
 }
 
 .todo-list .todo-item {
 	display: flex;
 	align-items: center;
+	vertical-align: middle;
 	background-color: #f5f2f2;;
-	padding: 1rem;
 	border-radius: 0.5rem;
 	box-shadow: var(--shadow);
-	margin-bottom: 1rem;
 }
 
 .todo-item label {
@@ -251,6 +244,10 @@ input:checked ~ .bubble::after {
 .todo-item .todo-content input {
 	color: var(--dark);
 	font-size: 1.125rem;
+	width: 98%;
+	word-break: break-all;
+	vertical-align: -12px;	
+	min-height: 0px;
 }
 
 .todo-item .actions {
@@ -271,13 +268,26 @@ input:checked ~ .bubble::after {
 	opacity: 0.75;
 }
 
-.todo-item .actions .edit {
+.todo-item .actions .delete {
 	margin-right: 0.5rem;
-	background-color: var(--primary);
+	background-color: var(--danger);
 }
 
-.todo-item .actions .delete {
-	background-color: var(--danger);
+.todo-item .actions .add	{
+	background-color: green;
+}
+
+.todo-item .removeSprint {
+	display: flex;
+	align-items: center;
+	margin: 0px;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	padding: 0.1rem;
+	background-color: #6dbef0;
+	color: white;
+	font-size: 11px;
+	width: 15%;
 }
 
 .todo-item.done .todo-content input {

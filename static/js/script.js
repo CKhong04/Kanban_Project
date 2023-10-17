@@ -17,6 +17,7 @@ window.addEventListener('load', () => {
 		const todo = {
 			content: e.target.elements.content.value,
 			category: e.target.elements.category.value,
+			personcontent: e.target.elements.personcontent.value,
 			done: false,
 			createdAt: new Date().getTime()
 		}
@@ -43,14 +44,28 @@ function DisplayTodos () {
 	todos.forEach(todo => {
 		const todoItem = document.createElement('div');
 		todoItem.classList.add('todo-item');
+		todoItem.classList.add("tasks"); //Add this to the tasks class, enabling drag and drop below.
+		todoItem.setAttribute("draggable", "true"); //Make the item able to be draggable.
+		
+		todoItem.addEventListener("dragstart", () => { //Allow the item to know when it is being dragged
+			todoItem.classList.add("is-dragging");
+		});
+
+		todoItem.addEventListener("dragend", () => { //Allow the item to know when it has stopped being dragged
+			todoItem.classList.remove("is-dragging");
+		});
+
 
 		const label = document.createElement('label');
 		const input = document.createElement('input');
 		const span = document.createElement('span');
-		const content = document.createElement('div');
+		const content = document.createElement('p');
 		const actions = document.createElement('div');
-		const edit = document.createElement('button');
 		const deleteButton = document.createElement('button');
+		const addToSprintButton = document.createElement('button');
+		const removeFromSprintButton = document.createElement('button');
+		const todoLane = document.getElementById("todo-lane");
+
 
 		input.type = 'checkbox';
 		input.checked = todo.done;
@@ -74,19 +89,29 @@ function DisplayTodos () {
 		}
 		content.classList.add('todo-content');
 		actions.classList.add('actions');
-		edit.classList.add('edit');
 		deleteButton.classList.add('delete');
+		addToSprintButton.classList.add('add');
+		removeFromSprintButton.classList.add('removeSprint');
 
 		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
-		edit.innerHTML = 'Edit';
 		deleteButton.innerHTML = 'Delete';
+		addToSprintButton.innerHTML = 'Add to Sprint';
+		removeFromSprintButton.innerHTML = 'Remove from Sprint';
+
+
 
 		label.appendChild(input);
 		label.appendChild(span);
-		actions.appendChild(edit);
 		actions.appendChild(deleteButton);
-		todoItem.appendChild(label);
+		actions.appendChild(addToSprintButton);
+		todoItem.appendChild(label);;
 		todoItem.appendChild(content);
+
+		// Display 'who is doing this task' on the task tile
+		const personContent = document.createElement('p');
+		personContent.innerHTML =  `<input type="text" value="${todo.personcontent}" readonly>`; 
+		todoItem.appendChild(personContent);
+		
 		todoItem.appendChild(actions);
 
 		todoList.appendChild(todoItem);
@@ -109,7 +134,7 @@ function DisplayTodos () {
 
 		})
 
-		edit.addEventListener('click', (e) => {
+		content.addEventListener('dblclick', (e) => {
 			const input = content.querySelector('input');
 			input.removeAttribute('readonly');
 			input.focus();
@@ -122,39 +147,92 @@ function DisplayTodos () {
 			})
 		})
 
+		personContent.addEventListener('dblclick', (e) => {
+			const input = personContent.querySelector('input');
+			input.removeAttribute('readonly');
+			input.focus();
+			input.addEventListener('blur', (e) => {
+				input.setAttribute('readonly', true);
+				todo.personcontent = e.target.value; // Corrected property name
+				localStorage.setItem('todos', JSON.stringify(todos));
+				DisplayTodos()
+			});
+		});
+
 		deleteButton.addEventListener('click', (e) => {
 			todos = todos.filter(t => t != todo);
 			localStorage.setItem('todos', JSON.stringify(todos));
 			DisplayTodos()
 		})
 
+		addToSprintButton.addEventListener('click', (e) => {
+			todoItem.style.width = "100%";
+			todoItem.style.display = "flex";
+			span.style.marginTop = "12px";
+			todoItem.removeChild(actions);
+			todoItem.appendChild(removeFromSprintButton);
+			todoLane.appendChild(todoItem);
+			todos = todos.filter(t => t != todo);
+			localStorage.setItem('todos', JSON.stringify(todos));
+			DisplayTodos()
+		})
+
+		removeFromSprintButton.addEventListener('click', (e) => {
+			todoItem.appendChild(actions);
+			todoItem.removeChild(removeFromSprintButton);
+			todoList.appendChild(todoItem);
+			// DisplayTodos() //This doesn't work atm, I need to fix it
+		})
+
 	})
 }
-//allowing the user to drag and drop different items
-const sortableList = document.querySelector(".sortable-list");
-const items = sortableList.querySelectorAll(".item");
-items.forEach(item => {
-item.addEventListener("dragstart", () => {
-// Adding dragging class to item after a delay
-    setTimeout(() => item.classList.add("dragging"), 0);
+
+const draggables = document.querySelectorAll(".tasks");
+const droppables = document.querySelectorAll(".swim-lane");
+
+draggables.forEach((tasks) => {
+  tasks.setAttribute("draggable", "true")
+  tasks.addEventListener("dragstart", () => {
+    tasks.classList.add("is-dragging");
+  });
+  tasks.addEventListener("dragend", () => {
+    tasks.classList.remove("is-dragging");
+  });
 });
-// Removing dragging class from item on dragend event
-item.addEventListener("dragend", () => item.classList.remove("dragging"));
-});
-const initSortableList = (e) => {
+
+droppables.forEach((zone) => {
+  zone.addEventListener("dragover", (e) => {
     e.preventDefault();
-    const draggingItem = document.querySelector(".dragging");
-    // Getting all items except currently dragging and making array of them
-    let siblings = [...sortableList.querySelectorAll(".item:not(.dragging)")];
-    // Finding the sibling after which the dragging item should be placed
-    let nextSibling = siblings.find(sibling => {
-        return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
-    });
-    // Inserting the dragging item before the found sibling
-    sortableList.insertBefore(draggingItem, nextSibling);
-}
-sortableList.addEventListener("dragover", initSortableList);
-sortableList.addEventListener("dragenter", e => e.preventDefault());
 
-checkLogin();
+    const bottomTask = insertAboveTask(zone, e.clientY);
+    const curTask = document.querySelector(".is-dragging");
 
+    if (!bottomTask) {
+      zone.appendChild(curTask);
+    } else {
+      zone.insertBefore(curTask, bottomTask);
+    }
+  });
+
+  zone.addEventListener("dragenter", e => e.preventDefault());
+});
+
+const insertAboveTask = (zone, mouseY) => {
+  const els = zone.querySelectorAll(".tasks:not(.is-dragging)");
+
+  let closestTask = null;
+  let closestOffset = Number.NEGATIVE_INFINITY;
+
+  els.forEach((tasks) => {
+    const { top } = tasks.getBoundingClientRect();
+
+    const offset = mouseY - top;
+
+    if (offset < 0 && offset > closestOffset) {
+      closestOffset = offset;
+      closestTask = tasks;
+    }
+  });
+
+  return closestTask;
+};
