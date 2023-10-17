@@ -14,6 +14,8 @@ from abc import ABC
 from flask_bcrypt import Bcrypt
 import string
 import random 
+import datetime 
+
 app = Flask(__name__)
 app.secret_key = 'FIT2101G24'
 bcrypt = Bcrypt(app)
@@ -171,5 +173,24 @@ def index_admin():
 
     return render_template('index_admin.html')
 
+@app.route("/plot")
+def user_plots() : 
+    
+    start = datetime.date(2023,9,4)        
+    k = 14 
+    val = 100 
+    labels = []
+    values = []
+    variable = 3
+    for day in range(k):
+        date = (start + datetime.timedelta(days = day)).isoformat()
+        labels.append(date)
+        val -= 100//14
+        values.append(val)
+
+    print(labels)
+    print(values)
+
+    return render_template("graph.html", labels=labels, values=values)
 if __name__ == "__main__": 
     app.run(debug=True) # when launching flask into production env, set it to false 
