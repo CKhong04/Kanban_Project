@@ -182,18 +182,39 @@ def index_admin():
 def user_burndowncharts() : 
     K = 14 # range of burndown chart
     start = datetime.date(2023,9,4)
-
+    start2 = datetime.date(2023,9,18)
+    start3 = datetime.date(2023,10,2) 
     labels = []
+    labels2 = [] 
+    labels3 = []
+
     values =[]
+    values2 = []
+    values3 = [] 
+
     val = 100
+    val2 = 100
+    val3 = 100 
+
 
     for day in range(K):
         date = (start + datetime.timedelta(days = day)).isoformat()
-        labels.append(date)
-        val-= random.randint(0,100//14)
-        values.append(val)
+        date2 = (start2 + datetime.timedelta(days = day)).isoformat()
+        date3 = (start3 + datetime.timedelta(days = day)).isoformat()
 
-    return render_template("graph.html", labels=labels, values=values)  
+        labels.append(date)
+        labels2.append(date2)
+        labels3.append(date3)
+
+        val-= random.randint(0,100//14)
+        val2 -= random.randint(0,100//14)
+        val3 -= random.randint(0,100//14)
+
+        values.append(val)
+        values2.append(val2)
+        values3.append(val3)
+
+    return render_template("graph.html", labels=labels, values=values, labels2=labels2, values2=values2, labels3=labels3, values3=values3)  
   
 if __name__ == "__main__": 
     app.run(debug=True) # when launching flask into production env, set it to false 
