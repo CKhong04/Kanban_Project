@@ -15,6 +15,8 @@ from flask_bcrypt import Bcrypt
 import string
 import random 
 import os
+import datetime
+
 app = Flask(__name__)
 app.secret_key = 'FIT2101G24'
 bcrypt = Bcrypt(app)
@@ -176,5 +178,22 @@ def index_admin():
 
     return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
 
+@app.route('/plot')
+def user_burndowncharts() : 
+    K = 14 # range of burndown chart
+    start = datetime.date(2023,9,4)
+
+    labels = []
+    values =[]
+    val = 100
+
+    for day in range(K):
+        date = (start + datetime.timedelta(days = day)).isoformat()
+        labels.append(date)
+        val-= random.randint(0,100//14)
+        values.append(val)
+
+    return render_template("graph.html", labels=labels, values=values)  
+  
 if __name__ == "__main__": 
     app.run(debug=True) # when launching flask into production env, set it to false 
