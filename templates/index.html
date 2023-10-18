@@ -37,18 +37,20 @@
 			<span class="mdl-layout-title">EMC & Co.</span>
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>
-			<!-- Navigation. We hide it in small screens. -->
+			<!-- Navigation. We hide this for small screens. -->
 			<nav class="mdl-navigation mdl-layout--large-screen-only">
+			<!-- Create links for various pages, including the homepage and past sprint backlogs, as well as a way to get a motivational message-->
 			<a class="mdl-navigation__link" href="">Homepage</a>
 			<a class="mdl-navigation__link" href="http://127.0.0.1:5000/past_sprints">Past Sprints</a>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="showAlert(event)">Motivational Message</button>
 			</nav>
 		</div>
 		</header>
+		<!--Create links to various pages. These links appear when the menu is clicked in the top left hand corner of the screen-->
 		<div class="mdl-layout__drawer">
 		<span class="mdl-layout-title">EMC & Co.</span>
 		<nav class="mdl-navigation">
-			<a class="mdl-navigation__link" href="http://127.0.0.1:5000/update_password">Change password</a>
+			<a class="mdl-navigation__link" href="/update_password">Change password</a>
 			<a class="mdl-navigation__link" href="/instructions">Instructions</a>
 			<a class="mdl-navigation__link" href="/plot">Previous Sprint Graphs</a>
 		</nav>
@@ -70,7 +72,7 @@
 		<section class="create-todo">
 			<h3>Task Log</h3>
 			<form id="new-todo-form">
-				<h4>Add tasks</h4>
+				<h4>Add tasks</h4> <!--A new section where a new task can have its content added. Also, a person can be assigned to the task here.-->
 				<input 
 					type="text" 
 					placeholder="Add your task here"
@@ -81,7 +83,7 @@
 					placeholder="Who is doing this task"
 					name="personcontent"
 					id="personcontent" />
-				<h4>Category</h4>
+				<h4>Category</h4> <!--Where tasks can be assigned a tag, given by different colours-->
 				<div class="options">
 					<label>
 						<input type="radio" name="category" id="category1" value="ui" /> 
@@ -125,16 +127,16 @@
 					</label>
 				</div>
 
-				<input type="submit" value="Add Task" />
+				<input type="submit" value="Add Task" /> <!--A button allowing new tasks to be added to the product backlog-->
 			</form>
 		</section>
 		<!-- End of New Todo -->
 
 		<!-- Todo List -->
 		<section class="todo-list">
-			<h3>Product Backlog</h3>
+			<h3>Product Backlog</h3> <!--A new section for the entire product backlog-->
 			<div class="swim-lane" id="todo-list" ></div>
-				<p class="list-content" id="individual-tasks" draggable="true"></p>
+				<p class="list-content" id="individual-tasks" draggable="true"></p> <!--All of the tasks in the product backlog will be part of this class-->
 		</section>
 		<!-- End of Todo List -->
 
