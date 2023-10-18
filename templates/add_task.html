@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Task to the Database</title>
+    <!-- CSS Import -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="/static/css/dragging.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <!-- End of CSS Import -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&display=swap"
+        rel="stylesheet">
+    <!-- End of Fonts -->
+    <style>
+        body {
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+        .tabs {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            background-color: #ddd;
+            /* Add a background color to tabs */
+        }
+
+        .tab {
+            margin-right: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            /* Add a border to the content area */
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="max-width: 400px; margin: 0 auto;">
+        <h2>Add Task to Database</h2>
+        <form action="/add_task" method="post">
+            <label for="name">Task Name:</label>
+            <input type="text" name="name" required style="width: 100%; margin-bottom: 10px;">
+
+            <label for="status">Status:</label>
+            <select name="status" required style="width: 100%; margin-bottom: 10px;">
+                <option value="To Do">To Do</option>
+                <option value="Doing">Doing</option>
+                <option value="Done">Done</option>
+            </select>
+
+            <label for="sprint_id">Sprint ID:</label>
+            <input type="text" name="sprint_id" required style="width: 100%; margin-bottom: 10px;">
+
+            <label for="assignee">Assignee:</label>
+            <input type="text" name="assignee" required style="width: 100%; margin-bottom: 10px;">
+
+            <button type="submit" style="width: 100%;">Add Task</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
