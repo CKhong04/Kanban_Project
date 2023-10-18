@@ -279,15 +279,17 @@ def user_burndowncharts():
 def current_burndownchart():
     K = 14  # range of burndown chart
     
-    start = datetime.date(2023, 10, 16)
+    start = datetime.date(2023, 10, 16) # start date of sprint
 
     labels = []
 
     for day in range(K):
+        # generate dates of sprint of length K (14 day sprint) and add them to label list
         date = (start + datetime.timedelta(days=day)).isoformat()
 
         labels.append(date)
 
+# allow label list to be usable in html file and create callable template
     return render_template("editable_graph.html", labels=labels)
 
 
