@@ -286,6 +286,9 @@ def user_burndowncharts():
     return render_template("test_graph.html", labels=labels, labels2=labels2, labels3=labels3)
 
 
+@app.route('/instructions')
+def user_instruction_page(): 
+    return render_template("instructions.html")
 
 if __name__ == "__main__":
     # when launching flask into production env, set it to false
