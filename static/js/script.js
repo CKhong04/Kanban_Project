@@ -116,10 +116,10 @@ function DisplayTodos () {
 
 		if (todo.done) {
 			todoItem.classList.add('done');
-			number = Math.random() * 10;
-			if (number < 3){
+			let number = Math.random() * 3;
+			if (number <= 1){
 				alert("Well done on completing a task! You are awesome!");
-			} else if (number < 6){
+			} else if (number <= 2){
 				alert("You rock! Keep smashing these tasks out!");
 			} else {
 				alert("You're amazing! *happy dance*");
