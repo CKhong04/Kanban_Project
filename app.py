@@ -275,6 +275,23 @@ def user_burndowncharts():
 
     return render_template("graph.html", labels=labels, values=values, labels2=labels2, values2=values2, labels3=labels3, values3=values3)
 
+@app.route('/currentplot')
+def current_burndownchart():
+    K = 14  # range of burndown chart
+    
+    start = datetime.date(2023, 10, 16)
+
+    labels = []
+
+    for day in range(K):
+        date = (start + datetime.timedelta(days=day)).isoformat()
+
+        labels.append(date)
+
+    return render_template("editable_graph.html", labels=labels)
+
+
+
 @app.route('/instructions')
 def user_instruction_page(): 
     return render_template("instructions.html")
