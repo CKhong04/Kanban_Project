@@ -78,7 +78,6 @@ class TaskDB(db.Model):
     name = db.Column(db.String(120), unique=False, nullable=False)
     status = db.Column(db.String(50), nullable=False, default='To Do')
     sprint_id = db.Column(db.Integer, nullable=False)
-    effort = db.Column(db.Integer, nullable=False)
     assignee = db.Column(db.String(20), nullable=False)
 
 
@@ -250,18 +249,17 @@ def user_burndowncharts():
     start = datetime.date(2023, 9, 4)
     start2 = datetime.date(2023, 9, 18)
     start3 = datetime.date(2023, 10, 2)
-
     labels = []
     labels2 = []
     labels3 = []
 
-    # values = []
-    # values2 = []
-    # values3 = []
+    values = []
+    values2 = []
+    values3 = []
 
-    # val = 100
-    # val2 = 100
-    # val3 = 100
+    val = 100
+    val2 = 100
+    val3 = 100
 
     for day in range(K):
         date = (start + datetime.timedelta(days=day)).isoformat()
@@ -272,19 +270,15 @@ def user_burndowncharts():
         labels2.append(date2)
         labels3.append(date3)
 
-        # val -= random.randint(0, 100//14)
-        # val2 -= random.randint(0, 100//14)
-        # val3 -= random.randint(0, 100//14)
+        val -= random.randint(0, 100//14)
+        val2 -= random.randint(0, 100//14)
+        val3 -= random.randint(0, 100//14)
 
-        # values.append(val)
-        # values2.append(val2)
-        # values3.append(val3)
+        values.append(val)
+        values2.append(val2)
+        values3.append(val3)
 
-    # return render_template("graph.html", labels=labels, values=values, labels2=labels2, values2=values2, labels3=labels3, values3=values3)
-
-    # return render_template("graph.html", labels=labels, labels2=labels2, labels3=labels3)
-    return render_template("test_graph.html", labels=labels, labels2=labels2, labels3=labels3)
-
+    return render_template("graph.html", labels=labels, values=values, labels2=labels2, values2=values2, labels3=labels3, values3=values3)
 
 @app.route('/instructions')
 def user_instruction_page(): 
