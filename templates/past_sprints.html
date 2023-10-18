@@ -76,9 +76,11 @@
                 <a class="mdl-navigation__link" href="/plot">Graphing</a>
             </nav>
         </div>
+        <!-- Displaying the past sprints. -->
         <h2>Past Sprints</h2>
         <main class="mdl-layout__content">
             <div class="page-content">
+                <!-- For each sprint, display a tab -->
                 <div class="tabs">
                     {% for sprint in sprints %}
                     <li class="tab" onclick="showTab('{{ sprint.id }}')">Sprint {{ sprint.id }}</li>
@@ -89,6 +91,7 @@
                 <div id="{{ sprint.id }}" class="tab-content">
                     <h2>Sprint {{ sprint.id }}</h2>
 
+                    <!-- Display each task by their status, name and assignee -->
                     <div class="lanes">
                         <div class="swim-lane" id="todo-lane">
                             <h3 class="heading">To Do</h3>
@@ -132,15 +135,16 @@
                 </div>
                 {% endfor %}
 
+                <!-- Tab JS: have an active tab which shows the current tab contents -->
                 <script>
                     function showTab(tabId) {
-                        // Hide all tab contents
+                        // hide all tab contents
                         var tabContents = document.querySelectorAll('.tab-content');
                         tabContents.forEach(function (tabContent) {
                             tabContent.classList.remove('active');
                         });
 
-                        // Show the selected tab content
+                        // show the selected tab content
                         var selectedTab = document.getElementById(tabId);
                         selectedTab.classList.add('active');
                     }

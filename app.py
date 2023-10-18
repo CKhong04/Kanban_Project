@@ -178,6 +178,7 @@ def past_sprints():
     sprint_ids_tuples = db.session.query(TaskDB.sprint_id).distinct().all()
     sprint_ids = [sprint_id[0] for sprint_id in sprint_ids_tuples]
 
+    # this allows me to display the tasks by sprint id
     for sprint_id in sprint_ids:
         tasks_todo = TaskDB.query.filter_by(
             sprint_id=sprint_id, status='To Do').all()
@@ -186,6 +187,7 @@ def past_sprints():
         tasks_done = TaskDB.query.filter_by(
             sprint_id=sprint_id, status='Done').all()
 
+    # using a dict so as an easy way to pass in the info to the html
         sprint_info = {
             'id': sprint_id,
             'tasks_todo': tasks_todo,
@@ -197,17 +199,18 @@ def past_sprints():
 
     return render_template('past_sprints.html', sprints=sprints)
 
-# this is my special index to add tasks into the database, as i couldnt find a way to do it within the html it was implemented
-
+# this is my special index to add tasks into the database, as i couldnt 
+# find a way to do it within the html it was implemented
 
 @app.route('/add_task', methods=['GET', 'POST'])
 def add_task():
-    if request.method == 'POST':
+    if request.method == 'POST': # input each attribute of the database
         name = request.form['name']
         status = request.form['status']
         sprint_id = request.form['sprint_id']
         assignee = request.form['assignee']
 
+        #create the task object
         new_task = TaskDB(name=name, status=status, sprint_id=sprint_id, assignee=assignee)
 
         # add to session
@@ -224,11 +227,7 @@ def index():
     if not g.user:
         return redirect(url_for('login'))
 
-    tasks_todo = TaskDB.query.filter_by(status='To Do').all()
-    tasks_doing = TaskDB.query.filter_by(status='Doing').all()
-    tasks_done = TaskDB.query.filter_by(status='Done').all()
-
-    return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
+    return render_template('index.html')
 
 
 @app.route('/index_admin')
@@ -236,11 +235,7 @@ def index_admin():
     if not g.user:
         return redirect(url_for('login'))
 
-    tasks_todo = TaskDB.query.filter_by(status='To Do').all()
-    tasks_doing = TaskDB.query.filter_by(status='Doing').all()
-    tasks_done = TaskDB.query.filter_by(status='Done').all()
-
-    return render_template('index.html', tasks_todo=tasks_todo, tasks_doing=tasks_doing, tasks_done=tasks_done)
+    return render_template('index.html')
 
 
 @app.route('/plot')

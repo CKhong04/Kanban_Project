@@ -1,3 +1,4 @@
+<!-- This is just so i can easily add to the database -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,6 +53,7 @@
     </style>
 </head>
 
+<!-- Provide a form that can be used to add a task into database through the flask route -->
 <body>
 
     <div style="max-width: 400px; margin: 0 auto;">
@@ -60,7 +62,7 @@
             <label for="name">Task Name:</label>
             <input type="text" name="name" required style="width: 100%; margin-bottom: 10px;">
 
-            <label for="status">Status:</label>
+            <label for="status">Status:</label> <!-- There are only 3 options so use dropdown menu -->
             <select name="status" required style="width: 100%; margin-bottom: 10px;">
                 <option value="To Do">To Do</option>
                 <option value="Doing">Doing</option>
