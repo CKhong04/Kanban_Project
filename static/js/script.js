@@ -19,8 +19,7 @@ window.addEventListener('load', () => {
 			category: e.target.elements.category.value,
 			personcontent: e.target.elements.personcontent.value,
 			done: false,
-			createdAt: new Date().getTime(),
-			status: 'backlog'
+			createdAt: new Date().getTime()
 		}
 
 		todos.push(todo);
@@ -37,15 +36,9 @@ window.addEventListener('load', () => {
 })
 
 function DisplayTodos () {
-	const todoList = document.getElementById('todo-list');
-	const todoLane = document.getElementById("todo-lane");
-	const doingLane = document.getElementById("doing-lance");
-	const doneLane = document.getElementById("done-lane");
-	const categories = new Set(['ui', 'ux', 'front-end', 'back-end', 'database', 'api', 'framework'])
+	const todoList = document.querySelector('#todo-list');
     
 	todoList.innerHTML = "";
-	[...todoLane.children].filter(e => e.tagName.toLowerCase() === 'div').forEach(e => e.remove());
-	[...todoLane.children].filter(e => e.tagName.toLowerCase() === 'div').forEach(e => e.remove());
     
 
 	todos.forEach(todo => {
@@ -73,10 +66,27 @@ function DisplayTodos () {
 		const removeFromSprintButton = document.createElement('button');
 		const todoLane = document.getElementById("todo-lane");
 
+
 		input.type = 'checkbox';
 		input.checked = todo.done;
 		span.classList.add('bubble');
-		span.classList.add(categories.has(todo.category) ? todo.category : 'testing')
+		if (todo.category == 'ui') {
+			span.classList.add('ui');
+        }else if( todo.category=='ux') {
+            span.classList.add('ux');
+        }else if( todo.category=='front-end') {
+            span.classList.add('front-end');
+        }else if( todo.category=='back-end') {
+            span.classList.add('back-end');
+        }else if( todo.category=='database') {
+            span.classList.add('database');
+        }else if( todo.category=='api') {
+            span.classList.add('api');
+        }else if( todo.category=='framework') {
+            span.classList.add('framework');
+		} else {
+			span.classList.add('testing');
+		}
 		content.classList.add('todo-content');
 		actions.classList.add('actions');
 		deleteButton.classList.add('delete');
@@ -87,6 +97,7 @@ function DisplayTodos () {
 		deleteButton.innerHTML = 'Delete';
 		addToSprintButton.innerHTML = 'Add to Sprint';
 		removeFromSprintButton.innerHTML = 'Remove from Sprint';
+
 
 
 		label.appendChild(input);
@@ -103,27 +114,10 @@ function DisplayTodos () {
 		
 		todoItem.appendChild(actions);
 
-		if (todo.status === 'backlog') {
-			todoList.appendChild(todoItem)
-		} else if (todo.status === 'todo') {
-			todoItem.style.width = "100%";
-			todoItem.style.display = "flex";
-			span.style.marginTop = "12px";
-			todoItem.removeChild(actions);
-			todoItem.appendChild(removeFromSprintButton);
-			todoLane.appendChild(todoItem);
-		}
+		todoList.appendChild(todoItem);
 
 		if (todo.done) {
 			todoItem.classList.add('done');
-			let number = Math.random() * 3;
-			if (number <= 1){
-				alert("Well done on completing a task! You are awesome!");
-			} else if (number <= 2){
-				alert("You rock! Keep smashing these tasks out!");
-			} else {
-				alert("You're amazing! *happy dance*");
-			}
 		}
 		
 		input.addEventListener('change', (e) => {
@@ -166,7 +160,7 @@ function DisplayTodos () {
 		});
 
 		deleteButton.addEventListener('click', (e) => {
-			todos = todos.filter(t => t !== todo);
+			todos = todos.filter(t => t != todo);
 			localStorage.setItem('todos', JSON.stringify(todos));
 			DisplayTodos()
 		})
@@ -178,7 +172,7 @@ function DisplayTodos () {
 			todoItem.removeChild(actions);
 			todoItem.appendChild(removeFromSprintButton);
 			todoLane.appendChild(todoItem);
-			todo.status = 'todo'
+			todos = todos.filter(t => t != todo);
 			localStorage.setItem('todos', JSON.stringify(todos));
 			DisplayTodos()
 		})
@@ -187,9 +181,7 @@ function DisplayTodos () {
 			todoItem.appendChild(actions);
 			todoItem.removeChild(removeFromSprintButton);
 			todoList.appendChild(todoItem);
-			todo.status = 'backlog'
-			localStorage.setItem('todos', JSON.stringify(todos));
-			DisplayTodos()
+			// DisplayTodos() //This doesn't work atm, I need to fix it
 		})
 
 	})
