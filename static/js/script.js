@@ -69,6 +69,7 @@ function DisplayTodos () {
 		const removeFromSprintButton = document.createElement('button');
 		const todoLane = document.getElementById("todo-lane");
 
+
 		input.type = 'checkbox';
 		input.checked = todo.done;
 		span.classList.add('bubble');
@@ -169,7 +170,7 @@ function DisplayTodos () {
 
 		//When the delete button is clicked, remove it from the list and accordingly adjust the locally stored tasks.
 		deleteButton.addEventListener('click', (e) => {
-			todos = todos.filter(t => t !== todo);
+			todos = todos.filter(t => t != todo);
 			localStorage.setItem('todos', JSON.stringify(todos));
 			DisplayTodos()
 		})
@@ -186,9 +187,7 @@ function DisplayTodos () {
 			todoItem.appendChild(actions);
 			todoItem.removeChild(removeFromSprintButton);
 			todoList.appendChild(todoItem);
-			todo.status = 'backlog'
-			localStorage.setItem('todos', JSON.stringify(todos));
-			DisplayTodos()
+			// DisplayTodos() //This doesn't work atm, I need to fix it
 		})
 
 	})
