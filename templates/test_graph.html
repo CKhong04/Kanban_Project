@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Burndown Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+</head>
+<body>
+    <canvas id="lineChart" width="900" height="400"></canvas>
+    <div>
+        <label for="yInput">Effort:  </label>
+        <input type="number" id="yInput" step="1" min="0" max="100">
+        <button onclick="addData()">Add</button>
+        <button onclick="deleteLastData()">Delete Previous Entry</button>
+    </div>
+
+    <script>
+
+        var labels = labels;
+        var values = [];
+
+        var ctx = document.getElementById("lineChart").getContext("2d");
+        var lineChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: {{ labels | safe }}, 
+                datasets: [
+                    {
+                        label: "Sprint Burndown Chart",
+                        data: values,
+                        fill: true,
+                        borderColor: "rgb(75, 192, 192)",
+                        lineTension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 100
+                        }
+                    }]
+                }
+            }
+        });
+
+        function addData() {
+            var yInput = document.getElementById("yInput");
+            var yValue = parseInt(yInput.value);
+
+            if (!isNaN(yValue)) {
+                values.push(yValue);
+                lineChart.update();
+            }
+
+            yInput.value = "";
+        }
+
+        function deleteLastDataValue() {
+            if (values.length > 0) {
+                values.pop();
+                lineChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
